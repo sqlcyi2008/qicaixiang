@@ -36,7 +36,14 @@
         top: 0.55em;
         margin-right: 0.3em;
       }
-      
+      p {
+        font-size:12px;
+        white-space:nowrap;
+        word-wrap:break-word;
+        word-break:break-all;
+        text-overflow:ellipsis;
+        overflow:hidden;
+      }
     </style>
     <!-- snippet (syntax highlighting for code examples)-->
     <script type="text/javascript" src="../js/demo/jquery.snippet.min.js"></script>
@@ -49,9 +56,25 @@
         var today = new Date();
         //alert("The time is: " + today.toString ());
         $.getJSON("/refresh",function(result){
-            console.log("@@"+result)
             $.each(result, function(i, field){
-                $("#mainlist").append('<p class="info dismissible message">'+field+'</p>');
+                console.log("@@"+field)
+                if(field.length == 6){
+                    return;
+                }
+                var head = field.substring(0,6);
+                var line = field.substring(6,field.length);
+                console.log("@@"+head)
+                if(head == "http->"){
+                    $("#httpDiv").append('<p class="info dismissible message">'+line+'</p>');
+                }else if(head == "sql2->"){
+                    $("#sql2Div").append('<p class="info dismissible message">'+line+'</p>');
+                }else if(head == "file->"){
+                    $("#fileDiv").append('<p class="info dismissible message">'+line+'</p>');
+                }else if(head == "code->"){
+                    $("#codeDiv").append('<p class="info dismissible message">'+line+'</p>');
+                }else if(head == "proc->"){
+                    $("#procDiv").append('<p class="info dismissible message">'+line+'</p>');
+                }
             });
         });
     }
@@ -91,34 +114,28 @@
           <div class="row">
             <div id="mainlist" class="one half padded bounceInDown animated">
               <p class="message round align-center">建议（20）</p>
-              <p class="success dismissible message">祝你好运。</p>
               <p class="success dismissible message">问题已解决。</p>
             </div>
-            <div class="one half padded bounceInDown animated">
+            <div id="slavelist" class="one half padded bounceInDown animated">
               <p class="message round align-center">建议（20）</p>
-              <p class="success dismissible message">祝你好运。</p>
               <p class="success dismissible message">问题已解决。</p>
             </div>
-            <hr>
-            <div class="one half padded bounceInDown animated">
-              <p class="message round align-center">进程(5)</p>
-              <p class="success dismissible message">祝你好运。</p>
-              <p class="success dismissible message">问题已解决。</p>
+          </div>
+          <div class="row">
+            <div id="httpDiv" class="one fifth padded bounceInDown animated">
+              <p class="message round align-center">网络（20）</p>
             </div>
-            <div class="one half padded bounceInDown animated">
-              <p class="message round align-center">调试(5)</p>
-              <p class="success dismissible message">祝你好运。</p>
-              <p class="success dismissible message">问题已解决。</p>
+            <div id="sql2Div" class="one fifth padded bounceInDown animated">
+              <p class="message round align-center">数据库(5)</p>
             </div>
-            <div class="one half padded bounceInDown animated">
-              <p class="message round align-center">网络(5)</p>
-              <p class="success dismissible message">祝你好运。</p>
-              <p class="success dismissible message">问题已解决。</p>
+            <div id="codeDiv" class="one fifth padded bounceInDown animated">
+              <p class="message round align-center">代码(5)</p>
             </div>
-            <div class="one half padded bounceInDown animated">
+            <div id="fileDiv" class="one fifth padded bounceInDown animated">
               <p class="message round align-center">文件(5)</p>
-              <p class="success dismissible message">祝你好运。</p>
-              <p class="success dismissible message">问题已解决。</p>
+            </div>
+            <div id="procDiv" class="one fifth padded bounceInDown animated">
+              <p class="message round align-center">进程(5)</p>
             </div>
           </div>
         </div>

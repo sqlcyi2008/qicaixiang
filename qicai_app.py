@@ -88,7 +88,7 @@ def os_watch(q):
                     line = json.dumps(pinfo)
                     #print(jj)
                     #q.put(jj)
-                    write_redis(line)
+                    write_redis("proc->"+line)
         #暂停
         time.sleep(10)
 
@@ -113,8 +113,8 @@ def capture_packet(q):
                 if tcp.startswith('GET') or tcp.startswith('POST'):
                     line = tcp.splitlines()[0]
                     #print(line)
-                    q.put(line)
-                    write_redis(line)
+                    #q.put(line)
+                    write_redis("http->" + line)
             #mysql
             if ipp.data.__class__.__name__ == 'TCP' and ipp.data.dport == 3306:
                 #print (ipp.data.data)   ignore
@@ -123,9 +123,11 @@ def capture_packet(q):
                     tcp = ipp.data.data.decode(encoding="utf-8", errors="ignore")
                 except Exception as e:
                     print(e)
-                if tcp.index('select') > -1 or tcp.index('insert') > -1 or tcp.index('update') > -1 or tcp.index('delete') > -1:
-                    print(tcp)
-                    q.put(tcp)
+                #if tcp.index('select') > -1 or tcp.index('insert') > -1 or tcp.index('update') > -1 or tcp.index('delete') > -1:
+                #    print(tcp)
+                #    q.put(tcp)
+                write_redis("sql2->" + tcp)
+
             #oracle
             if ipp.data.__class__.__name__ == 'TCP' and ipp.data.dport == 1521:
                 #print (ipp.data.data)   ignore
@@ -137,7 +139,7 @@ def capture_packet(q):
                 #if tcp.index('select') > -1 or tcp.index('insert') > -1 or tcp.index('update') > -1 or tcp.index('delete') > -1:
                 #    print(tcp)
                 #    q.put(tcp)
-                write_redis(tcp)
+                write_redis("sql2->"+tcp)
 
             #sqlserver
             if ipp.data.__class__.__name__ == 'TCP' and ipp.data.dport == 1433:
@@ -150,7 +152,7 @@ def capture_packet(q):
                 #if tcp.index('select') > -1 or tcp.index('insert') > -1 or tcp.index('update') > -1 or tcp.index('delete') > -1:
                 #print(tcp)
                 #q.put(tcp)
-                write_redis(tcp)
+                write_redis("sql2->"+tcp)
 
     except KeyboardInterrupt:
         pass
@@ -203,7 +205,7 @@ if __name__ == '__main__':
     pw.start()
 
     ow = Process(target=os_watch, args=(q,))
-    #ow.start()
+    ow.start()
 
     fw = Process(target=file_watch, args=())
     fw.start()

@@ -18,7 +18,6 @@ def write_redis(line):
 #jdb子进程
 global proc
 def outThread(var):
-
     while True:
         global proc
         line = proc.stdout.readline()
@@ -26,7 +25,7 @@ def outThread(var):
             break
         line =line.decode('gbk')
         #print(line)
-        write_redis(line)
+        write_redis("code->"+line)
         if 'Server startup in' in line:
             msg = 'trace go methods\r\n'.encode('utf-8')
             proc.stdin.write(msg)
