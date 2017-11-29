@@ -50,20 +50,15 @@
     <link type="text/css" rel="stylesheet" href="../css/demo/jquery.snippet.css">
 
     <script type="text/javascript">
-
     function showMsg()
     {
         var today = new Date();
         //alert("The time is: " + today.toString ());
         $.getJSON("/refresh",function(result){
             $.each(result, function(i, field){
-                console.log("@@"+field)
-                if(field.length == 6){
-                    return;
-                }
+                if(field.length == 6){return;}
                 var head = field.substring(0,6);
                 var line = field.substring(6,field.length);
-                console.log("@@"+head)
                 if(head == "http->"){
                     $("#httpDiv").append('<p class="info dismissible message">'+line+'</p>');
                 }else if(head == "sql2->"){
@@ -73,12 +68,17 @@
                 }else if(head == "code->"){
                     $("#codeDiv").append('<p class="info dismissible message">'+line+'</p>');
                 }else if(head == "proc->"){
-                    $("#procDiv").append('<p class="info dismissible message">'+line+'</p>');
+                    $("#procDiv").empty();
+                    line = line.split(';pid:');
+                    $.each(line, function(i, field){
+                        if(field != ''){
+                            $("#procDiv").append('<p class="info dismissible message">'+field+'</p>');
+                        }
+                    });
                 }
             });
         });
     }
-
 
 (function() {
 
@@ -122,20 +122,32 @@
             </div>
           </div>
           <div class="row">
-            <div id="httpDiv" class="one fifth padded bounceInDown animated">
+            <div id="httpCol" class="one fifth padded bounceInDown animated">
               <p class="message round align-center">网络（20）</p>
             </div>
-            <div id="sql2Div" class="one fifth padded bounceInDown animated">
+            <div id="sql2Col" class="one fifth padded bounceInDown animated">
               <p class="message round align-center">数据库(5)</p>
             </div>
-            <div id="codeDiv" class="one fifth padded bounceInDown animated">
+            <div id="codeCol" class="one fifth padded bounceInDown animated">
               <p class="message round align-center">代码(5)</p>
             </div>
-            <div id="fileDiv" class="one fifth padded bounceInDown animated">
+            <div id="fileCol" class="one fifth padded bounceInDown animated">
               <p class="message round align-center">文件(5)</p>
             </div>
-            <div id="procDiv" class="one fifth padded bounceInDown animated">
+            <div id="procCol" class="one fifth padded bounceInDown animated">
               <p class="message round align-center">进程(5)</p>
+            </div>
+          </div>
+          <div class="row">
+            <div id="httpDiv" class="one fifth padded bounceInDown animated">
+            </div>
+            <div id="sql2Div" class="one fifth padded bounceInDown animated">
+            </div>
+            <div id="codeDiv" class="one fifth padded bounceInDown animated">
+            </div>
+            <div id="fileDiv" class="one fifth padded bounceInDown animated">
+            </div>
+            <div id="procDiv" class="one fifth padded bounceInDown animated">
             </div>
           </div>
         </div>
