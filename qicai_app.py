@@ -46,20 +46,39 @@ class TheQRCodeHandler(tornado.web.RequestHandler):
     def get(self):
         self.render('theqrcode.png')
 
+#远程启动进程
+class ProcessHandler(tornado.web.RequestHandler):
+    def get(self,name,action):
+        if(name=="code"):
+            global jdb
+            if(action=="start"):
+                jdb = Process(target=exec_jdb, args=())
+                jdb.start()
+            else:
+                print("@@@" + name + jdb)
+                #不好使
+                jdb.terminate()
+        elif(name=="sql2"):
+            print("eee")
+        elif(name=="file"):
+            print(name)
+        elif(name=="proc"):
+            print(name+"##"+action)
+        elif(name=="http"):
+            print(name)
+        else:
+            print(name)
+
+
 #返回网络包信息
 class RefreshHandler(tornado.web.RequestHandler):
     def get(self):
         ll=[]
-        #while not q.empty():
-        #    ll.append(q.get(True))
-        #self.write(json.dumps(ll))
-
         global r
         for i in range(100):
             line = r.rpop('qicaixiang')
             if line:
                 line = str(line.decode(encoding="utf-8", errors="ignore"))
-                #print(">>>" + line)
                 ll.append(line)
         print("###"+str(ll))
         self.write(json.dumps(ll))
@@ -69,6 +88,7 @@ class Application(tornado.web.Application):
         handlers = [
             (r'/', IndexPageHandler),
             (r'/theqrcode.png', TheQRCodeHandler),
+            (r"/process/(\w*)/(\w*)", ProcessHandler),
             (r'/refresh', RefreshHandler)
         ]
 
@@ -76,26 +96,24 @@ class Application(tornado.web.Application):
         tornado.web.Application.__init__(self, handlers, **settings)
 
 # 操作系统监控
-def os_watch(q):
+def os_watch():
     while True:
         pp = ''
 
         for proc in psutil.process_iter():
             try:
                 pinfo = proc.as_dict(attrs=['pid', 'name', 'cmdline'])
-                #pinfo = "pid:"+str(proc.pid)+"#cmdline:"+str(proc.cmdline)
             except psutil.NoSuchProcess:
                 pass
             else:
-                pp=pp+";pid:"+str(pinfo['pid'])+"#cmdline:"+str(pinfo['cmdline'])
-                #if pinfo.get("cmdline"):
+                pp=pp+";pid:"+str(pinfo['pid'])+":"+str(pinfo['cmdline'])
 
         write_redis("proc->"+str(pp))
         #暂停
         time.sleep(10)
 
 # 抓包进程执行代码:
-def capture_packet(q):
+def capture_packet():
     sniffer = socket.socket(socket.AF_INET, socket.SOCK_RAW, socket.IPPROTO_IP)
     myip = get_ip()
     sniffer.bind((myip, 0))
@@ -114,20 +132,15 @@ def capture_packet(q):
                     print(e)
                 if tcp.startswith('GET') or tcp.startswith('POST'):
                     line = tcp.splitlines()[0]
-                    #print(line)
-                    #q.put(line)
                     write_redis("http->" + line)
+
             #mysql
             if ipp.data.__class__.__name__ == 'TCP' and ipp.data.dport == 3306:
-                #print (ipp.data.data)   ignore
                 tcp=''
                 try:
                     tcp = ipp.data.data.decode(encoding="utf-8", errors="ignore")
                 except Exception as e:
                     print(e)
-                #if tcp.index('select') > -1 or tcp.index('insert') > -1 or tcp.index('update') > -1 or tcp.index('delete') > -1:
-                #    print(tcp)
-                #    q.put(tcp)
                 write_redis("sql2->" + tcp)
 
             #oracle
@@ -138,22 +151,15 @@ def capture_packet(q):
                     tcp = ipp.data.data.decode(encoding="utf-8", errors="ignore")
                 except Exception as e:
                     print(e)
-                #if tcp.index('select') > -1 or tcp.index('insert') > -1 or tcp.index('update') > -1 or tcp.index('delete') > -1:
-                #    print(tcp)
-                #    q.put(tcp)
                 write_redis("sql2->"+tcp)
 
             #sqlserver
             if ipp.data.__class__.__name__ == 'TCP' and ipp.data.dport == 1433:
-                #print (ipp.data.data)   ignore
                 tcp=''
                 try:
                     tcp = ipp.data.data.decode(encoding="utf-8", errors="ignore")
                 except Exception as e:
                     print(e)
-                #if tcp.index('select') > -1 or tcp.index('insert') > -1 or tcp.index('update') > -1 or tcp.index('delete') > -1:
-                #print(tcp)
-                #q.put(tcp)
                 write_redis("sql2->"+tcp)
 
     except KeyboardInterrupt:
@@ -191,28 +197,23 @@ def start_server():
 
 if __name__ == '__main__':
 
-    print("IP:"+get_ip())
-    # 全局变量存储抓包消息
-
-    global q
-    q = Queue()
-
     sr = Process(target=start_redis, args=())
     sr.start()
 
-    jdb = Process(target=exec_jdb, args=())
-    jdb.start()
+    #jdb = Process(target=exec_jdb, args=())
+    #jdb.start()
 
-    pw = Process(target=capture_packet, args=(q,))
-    pw.start()
+    pw = Process(target=capture_packet, args=())
+    #pw.start()
 
-    ow = Process(target=os_watch, args=(q,))
-    ow.start()
+    ow = Process(target=os_watch, args=())
+    #ow.start()
 
     fw = Process(target=file_watch, args=())
-    fw.start()
+    #fw.start()
 
     ss = Process(target=start_server, args=())
     ss.start()
 
     #read_redis()
+    print("IP:"+get_ip())
