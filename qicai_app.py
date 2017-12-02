@@ -56,31 +56,24 @@ class ProcessHandler(tornado.web.RequestHandler):
                 jdb = Process(target=exec_jdb, args=())
                 jdb.start()
             else:
-                print("@@@" + name + jdb)
-                #不好使
                 jdb.terminate()
-        elif(name=="sql2"):
-            print("eee")
+        elif(name=="pack"):
+            pw = Process(target=capture_packet, args=())
+            pw.start()
         elif(name=="file"):
-            print(name)
-        elif(name=="proc"):
-            print(name+"##"+action)
-        elif(name=="http"):
-            print(name)
+            fw = Process(target=file_watch, args=())
+            fw.start()
         elif(name == "all"):
             jdb = Process(target=exec_jdb, args=())
             jdb.start()
-
             pw = Process(target=capture_packet, args=())
             pw.start()
-
-            ow = Process(target=os_watch, args=())
-            ow.start()
-
             fw = Process(target=file_watch, args=())
             fw.start()
         else:
             print(name)
+
+        self.write("{'status':'ok'}")
 
 
 #返回网络包信息
@@ -216,13 +209,13 @@ if __name__ == '__main__':
     #jdb = Process(target=exec_jdb, args=())
     #jdb.start()
 
-    pw = Process(target=capture_packet, args=())
+    #pw = Process(target=capture_packet, args=())
     #pw.start()
 
     ow = Process(target=os_watch, args=())
-    #ow.start()
+    ow.start()
 
-    fw = Process(target=file_watch, args=())
+    #fw = Process(target=file_watch, args=())
     #fw.start()
 
     ss = Process(target=start_server, args=())

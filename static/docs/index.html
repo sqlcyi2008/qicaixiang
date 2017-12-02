@@ -50,6 +50,12 @@
     <link type="text/css" rel="stylesheet" href="../css/demo/jquery.snippet.css">
 
     <script type="text/javascript">
+
+    function startMon(type){
+        $.get(type);
+        alert("ok!");
+    }
+
     var httpDiv=0,sql2Div=0,fileDiv=0,codeDiv=0,procDiv=0;
     function showMsg()
     {
@@ -138,16 +144,16 @@
               <p class="red message">工具</p>
             </div>
             <div class="one seventh padded bounceInDown animated">
-              <p class="pink message">工具</p>
+              <p class="green message"><a href="javascript:startMon('/process/pack/start');">网络</a></p>
             </div>
             <div class="one seventh padded bounceInDown animated">
-              <p class="asphalt message">工具</p>
+              <p class="green message"><a href="javascript:startMon('/process/code/start');">代码</a></p>
             </div>
             <div class="one seventh padded bounceInDown animated">
-              <p class="green message">工具</p>
+              <p class="green message"><a href="javascript:startMon('/process/file/start');">文件</a></p>
             </div>
             <div class="one seventh padded bounceInDown animated">
-              <p class="green message"><a href="/process/all/">全部启动</a></p>
+              <p class="green message"><a href="javascript:startMon('/process/all/start');">全部</a></p>
             </div>
           </div>
           <div class="row">
