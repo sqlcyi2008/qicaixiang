@@ -14,6 +14,7 @@ import subprocess
 import time
 import threading
 import os
+import constants
 
 pool = redis.ConnectionPool(host='127.0.0.1', port=6379)
 global r
@@ -40,7 +41,7 @@ def start_redis():
 
 class IndexPageHandler(tornado.web.RequestHandler):
     def get(self):
-        self.render('index.html')
+        self.redirect('/static/docs/home.html')
 
 class TheQRCodeHandler(tornado.web.RequestHandler):
     def get(self):
@@ -66,6 +67,18 @@ class ProcessHandler(tornado.web.RequestHandler):
             print(name+"##"+action)
         elif(name=="http"):
             print(name)
+        elif(name == "all"):
+            jdb = Process(target=exec_jdb, args=())
+            jdb.start()
+
+            pw = Process(target=capture_packet, args=())
+            pw.start()
+
+            ow = Process(target=os_watch, args=())
+            ow.start()
+
+            fw = Process(target=file_watch, args=())
+            fw.start()
         else:
             print(name)
 
@@ -217,3 +230,4 @@ if __name__ == '__main__':
 
     #read_redis()
     print("IP:"+get_ip())
+    #print("@@@"+constants.QI_FILE_TYPE)
