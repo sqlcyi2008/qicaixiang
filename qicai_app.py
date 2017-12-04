@@ -105,15 +105,19 @@ class Application(tornado.web.Application):
 def os_watch():
     while True:
         pp = ''
-
         for proc in psutil.process_iter():
             try:
                 pinfo = proc.as_dict(attrs=['pid', 'name', 'cmdline'])
             except psutil.NoSuchProcess:
                 pass
             else:
-                pp=pp+";pid:"+str(pinfo['pid'])+":"+str(pinfo['cmdline'])
-
+                cl = ''
+                ll = pinfo['cmdline']
+                pid = str(pinfo['pid'])
+                if not ll is None:
+                    for i in ll:
+                        cl = cl +i+" "
+                    pp=pp +";pid:"+pid+"->"+cl
         write_redis("proc->"+str(pp))
         #暂停
         time.sleep(10)

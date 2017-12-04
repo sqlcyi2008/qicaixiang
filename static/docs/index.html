@@ -56,6 +56,11 @@
         alert("ok!");
     }
 
+    function showAllDetail(type){
+        var win=null;
+        win=window.open("details.html","win","width=800,height=600");
+    }
+
     var httpDiv=0,sql2Div=0,fileDiv=0,codeDiv=0,procDiv=0;
     function showMsg()
     {
@@ -91,11 +96,13 @@
                     $.each(line, function(i, field){
                         field=$.trim(field);
                         if(field != '' && field.indexOf('[]')==-1 && field.indexOf('None')==-1){
-                            $("#procDiv").append('<p class="info dismissible message" title="'+field+'">'+field+'</p>');
+                            $("#procDiv").append('<p class="info message">'+field+'</p>');
                             procDiv++;
                             $("#procCol p").html("进程（<font style='color:#F00'>"+procDiv+"</font>）");
                         }
                     });
+
+                    //$("#procDiv p").html("<a>333</a>");
 
                 }
             });
@@ -170,7 +177,7 @@
               <p class="message round align-center">文件（0）</p>
             </div>
             <div id="procCol" class="one fifth padded bounceInDown animated">
-              <p class="message round align-center">进程（0）</p>
+              <p class="message round align-center" onclick="showAllDetail('procDiv')">进程（0）</p>
             </div>
           </div>
           <div class="row">
