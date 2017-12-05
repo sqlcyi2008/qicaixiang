@@ -58,7 +58,7 @@
 
     function showAllDetail(type){
         var win=null;
-        win=window.open("details.html","win","width=800,height=600");
+        win=window.open("details.html?target="+type,"win","width=800,height=600");
     }
 
     var httpDiv=0,sql2Div=0,fileDiv=0,codeDiv=0,procDiv=0;
@@ -165,16 +165,16 @@
           </div>
           <div class="row">
             <div id="httpCol" class="one fifth padded bounceInDown animated">
-              <p class="message round align-center">网络（0）</p>
+              <p class="message round align-center" onclick="showAllDetail('httpDiv')">网络（0）</p>
             </div>
             <div id="sql2Col" class="one fifth padded bounceInDown animated">
-              <p class="message round align-center">数据库（0）</p>
+              <p class="message round align-center" onclick="showAllDetail('sql2Div')">数据库（0）</p>
             </div>
             <div id="codeCol" class="one fifth padded bounceInDown animated">
-              <p class="message round align-center">代码（0）</p>
+              <p class="message round align-center" onclick="showAllDetail('codeDiv')">代码（0）</p>
             </div>
             <div id="fileCol" class="one fifth padded bounceInDown animated">
-              <p class="message round align-center">文件（0）</p>
+              <p class="message round align-center" onclick="showAllDetail('fileDiv')">文件（0）</p>
             </div>
             <div id="procCol" class="one fifth padded bounceInDown animated">
               <p class="message round align-center" onclick="showAllDetail('procDiv')">进程（0）</p>
