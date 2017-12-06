@@ -4,19 +4,19 @@
 from setuptools import setup
 
 '''
-把qicai_app服务打包成C:\Python27\Scripts下的exe文件
+ALL DEV IN BOX
 '''
 
 setup(
-    name="qicaixiang",  #pypi中的名称，pip或者easy_install安装时使用的名称，或生成egg文件的名称
+    name="qicaixiang",
     version="1.0",
     author="lichuanyi",
     author_email="123438115@qq.com",
-    description=(""),
+    description=("七彩箱"),
     license="GPLv3",
-    keywords="",
-    url="",
-    packages=['RedisRun'],  # 需要打包的目录列表
+    keywords="dev box",
+    url="www.qicaixiang.xyz",
+    packages=['qicaixiang'],  # 需要打包的目录列表
 
     # 需要安装的依赖
     install_requires=[

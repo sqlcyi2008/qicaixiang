@@ -3,6 +3,7 @@ import time
 import threading
 from time import ctime,sleep
 import redis
+import constants
 
 
 
@@ -35,6 +36,10 @@ def outThread(var):
 def main():
 
     outthr = threading.Thread(target=outThread, args=(u'输出线程',))
+
+    global r
+    command1=r.get(constants.QI_JAVA_CMDLINE)
+    print("!!!"+command1)
 
     command = 'jdb.exe -launch -Djdk.tls.ephemeralDHKeySize=2048 -Djava.util.logging.config.file=D:\\apps\\apache-tomcat-7.0.72\\conf\\logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djava.endorsed.dirs=D:\\apps\\apache-tomcat-7.0.72\\endorsed -classpath D:\\apps\\apache-tomcat-7.0.72\\bin\\bootstrap.jar;D:\\apps\\apache-tomcat-7.0.72\\bin\\tomcat-juli.jar -Dcatalina.base=D:\\apps\\apache-tomcat-7.0.72 -Dcatalina.home=D:\\apps\\apache-tomcat-7.0.72 -Djava.io.tmpdir=D:\\apps\\apache-tomcat-7.0.72\\temp org.apache.catalina.startup.Bootstrap start'
 

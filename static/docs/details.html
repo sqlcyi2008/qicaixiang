@@ -40,7 +40,8 @@
     </style>
     <script type="text/javascript">
     function setdebug(){
-        alert("setdebug");
+        var url = "/debugger?cmd="+escape($('#message').val());
+        $.post(url);
     }
 
     function setfolder(){

@@ -75,19 +75,26 @@ class ProcessHandler(tornado.web.RequestHandler):
 
         self.write("{'status':'ok'}")
 
-
-#返回网络包信息
+# 返回网络包信息
 class RefreshHandler(tornado.web.RequestHandler):
     def get(self):
-        ll=[]
+        ll = []
         global r
         for i in range(100):
             line = r.rpop('qicaixiang')
             if line:
                 line = str(line.decode(encoding="utf-8", errors="ignore"))
                 ll.append(line)
-        print("###"+str(ll))
+        print("###" + str(ll))
         self.write(json.dumps(ll))
+
+#配置调试
+class DebuggerHandler(tornado.web.RequestHandler):
+    def post(self):
+        cmd = self.get_arguments("cmd")
+        global r
+        r.set(constants.QI_JAVA_CMDLINE,cmd[0])
+        #self.write(cmd[0])
 
 class Application(tornado.web.Application):
     def __init__(self):
@@ -95,6 +102,7 @@ class Application(tornado.web.Application):
             (r'/', IndexPageHandler),
             (r'/theqrcode.png', TheQRCodeHandler),
             (r"/process/(\w*)/(\w*)", ProcessHandler),
+            (r'/debugger', DebuggerHandler),
             (r'/refresh', RefreshHandler)
         ]
 
@@ -134,7 +142,7 @@ def capture_packet():
         while True:
             raw_buffer = sniffer.recvfrom(65535)[0]
             ipp = dpkt.ip.IP(raw_buffer)
-            if ipp.data.__class__.__name__ == 'TCP' and ipp.data.dport == 8080:
+            if ipp.data.__class__.__name__ == 'TCP' and ipp.data.dport == 7788:
                 tcp=''
                 try:
                     tcp = ipp.data.data.decode(encoding="utf-8", errors="ignore")
