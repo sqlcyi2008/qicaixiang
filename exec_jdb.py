@@ -30,9 +30,20 @@ def outThread(var):
         # print(line)
         write_redis("code->" + line)
         if 'Server startup in' in line:
-            msg = 'trace go methods\r\n'.encode('utf-8')
+            #msg = 'trace go methods\r\n'.encode('utf-8')
+            msg = 'stop at com.inspur.sw.stpptnr.cmd.StPptnRCommand:706\r\n'.encode('utf-8')
             proc.stdin.write(msg)
             proc.stdin.flush()
+
+        if '断点命中:' in line:
+            msg = 'locals\r\n'.encode('utf-8')
+            proc.stdin.write(msg)
+            proc.stdin.flush()
+
+            msg = 'cont\r\n'.encode('utf-8')
+            proc.stdin.write(msg)
+            proc.stdin.flush()
+
 
 def formatCmd(line):
     line=line[line.find('->')+2:].replace('\\','/')
