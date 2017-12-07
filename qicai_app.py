@@ -142,7 +142,7 @@ def capture_packet():
         while True:
             raw_buffer = sniffer.recvfrom(65535)[0]
             ipp = dpkt.ip.IP(raw_buffer)
-            if ipp.data.__class__.__name__ == 'TCP' and ipp.data.dport == 7788:
+            if ipp.data.__class__.__name__ == 'TCP' and ipp.data.dport == 8080:
                 tcp=''
                 try:
                     tcp = ipp.data.data.decode(encoding="utf-8", errors="ignore")
