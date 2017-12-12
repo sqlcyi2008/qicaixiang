@@ -142,27 +142,28 @@
         <div class="one whole padded">
           <div class="row">
             <div class="one seventh padded bounceInDown animated">
-              <p class="yellow message">工具</p>
+              <button class="yellow gap-right gap-bottom">智能快照</button>
             </div>
             <div class="one seventh padded bounceInDown animated">
-              <p class="orange message">工具</p>
+              <button class="yellow gap-right gap-bottom">深度爬虫</button>
             </div>
             <div class="one seventh padded bounceInDown animated">
-              <p class="red message">工具</p>
+              <button class="orange gap-right gap-bottom">端口转发</button>
             </div>
             <div class="one seventh padded bounceInDown animated">
-              <p class="green message"><a href="javascript:startMon('/process/pack/start');">网络</a></p>
+              <button class="red gap-right gap-bottom" onclick="startMon('/process/pack/start')">网络抓包</button>
             </div>
             <div class="one seventh padded bounceInDown animated">
-              <p class="green message"><a href="javascript:startMon('/process/code/start');">代码</a></p>
+              <button class="pink gap-right gap-bottom" onclick="startMon('/process/code/start')">代码调试</button>
             </div>
             <div class="one seventh padded bounceInDown animated">
-              <p class="green message"><a href="javascript:startMon('/process/file/start');">文件</a></p>
+              <button class="purple gap-right gap-bottom" onclick="startMon('/process/file/start')">文件监控</button>
             </div>
             <div class="one seventh padded bounceInDown animated">
-              <p class="green message"><a href="javascript:startMon('/process/all/start');">全部</a></p>
+              <button class="blue gap-right gap-bottom" onclick="startMon('/process/all/start')">全部启动</button>
             </div>
           </div>
+          <hr>
           <div class="row">
             <div id="httpCol" class="one fifth padded bounceInDown animated">
               <p class="message round align-center" onclick="showAllDetail('httpDiv')">网络（0）</p>

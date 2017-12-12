@@ -80,7 +80,7 @@ class RefreshHandler(tornado.web.RequestHandler):
     def get(self):
         ll = []
         global r
-        for i in range(100):
+        for i in range(1000):
             line = r.rpop('qicaixiang')
             if line:
                 line = str(line.decode(encoding="utf-8", errors="ignore"))

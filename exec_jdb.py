@@ -27,8 +27,10 @@ def stdoutThread(var):
         # print(line)
         write_redis("code->" + line)
         if 'Server startup in' in line:
-            # msg = 'trace go methods\r\n'.encode('utf-8')
-            msg = 'stop at com.inspur.sw.stpptnr.cmd.StPptnRCommand:706\r\n'.encode('utf-8')
+            msg = 'trace go method exits\r\n'.encode('utf-8')
+            #msg = 'trace go methods\r\n'.encode('utf-8')
+            # trace [go] method exit | exits
+            #msg = 'stop at com.inspur.sw.stpptnr.cmd.StPptnRCommand:706\r\n'.encode('utf-8')
             proc.stdin.write(msg)
             proc.stdin.flush()
 
@@ -104,13 +106,14 @@ def main():
     inthr.setDaemon(True)
     inthr.start()
 
-    msg = 'exclude flex.*,com.microsoft.*,org.apache.*,java.*,sun.*,javax.*,org.loushang.*,com.sun.*,org.json.*,org.xml.*,edu.emory.*\r\n'.encode(
+    msg = 'exclude org.loushang.sca.*,flex.*,com.alibaba.*,org.springframework.*,com.fasterxml.*,com.mysql.*,com.mchange.*,net.*,org.codehaus.*,org.mybatis.*,com.microsoft.*,org.apache.*,java.*,sun.*,javax.*,com.sun.*,org.json.*,org.xml.*,edu.emory.*\r\n'.encode(
         'utf-8')
     proc.stdin.write(msg)
     proc.stdin.flush()
 
+    #  org.loushang.sca.*,com.alibaba.druid.*,org.springframework.*,com.fasterxml.*,com.mysql.*,com.mchange.*,net.*,org.codehaus.*,org.mybatis.*,org.loushang.*,
     '''
-    msg = 'trace go methods\r\n'.encode('utf-8')
+    msg = 'trace go methods exit\r\n'.encode('utf-8')
     process1.stdin.write(msg)
     process1.stdin.flush()
     '''
