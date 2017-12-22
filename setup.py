@@ -16,7 +16,7 @@ setup(
     license="GPLv3",
     keywords="dev box",
     url="www.qicaixiang.xyz",
-    packages=['qicaixiang'],  # 需要打包的目录列表
+    packages=['qi'],  # 需要打包的目录列表
 
     # 需要安装的依赖
     install_requires=[
