@@ -36,7 +36,68 @@
         top: 0.55em;
         margin-right: 0.3em;
       }
-      
+
+      /*效果一：360°旋转 修改rotate(旋转度数)*/
+      .img1 {
+          transition: All 0.4s ease-in-out;
+          -webkit-transition: All 0.4s ease-in-out;
+          -moz-transition: All 0.4s ease-in-out;
+          -o-transition: All 0.4s ease-in-out;
+      }
+
+      .img1:hover {
+          transform: rotate(360deg);
+          -webkit-transform: rotate(360deg);
+          -moz-transform: rotate(360deg);
+          -o-transform: rotate(360deg);
+          -ms-transform: rotate(360deg);
+      }
+
+      /*效果二：放大 修改scale(放大的值)*/
+      .img2 {
+          transition: All 0.4s ease-in-out;
+          -webkit-transition: All 0.4s ease-in-out;
+          -moz-transition: All 0.4s ease-in-out;
+          -o-transition: All 0.4s ease-in-out;
+      }
+
+      .img2:hover {
+          transform: scale(1.2);
+          -webkit-transform: scale(1.2);
+          -moz-transform: scale(1.2);
+          -o-transform: scale(1.2);
+          -ms-transform: scale(1.2);
+      }
+     /*效果三：旋转放大 修改rotate(旋转度数) scale(放大值)*/
+      .img3 {
+          transition: All 0.4s ease-in-out;
+          -webkit-transition: All 0.4s ease-in-out;
+          -moz-transition: All 0.4s ease-in-out;
+          -o-transition: All 0.4s ease-in-out;
+      }
+
+      .img3:hover {
+          transform: rotate(360deg) scale(1.2);
+          -webkit-transform: rotate(360deg) scale(1.2);
+          -moz-transform: rotate(360deg) scale(1.2);
+          -o-transform: rotate(360deg) scale(1.2);
+          -ms-transform: rotate(360deg) scale(1.2);
+      }
+      /*效果四：上下左右移动 修改translate(x轴,y轴)*/
+      .img4 {
+          transition: All 0.4s ease-in-out;
+          -webkit-transition: All 0.4s ease-in-out;
+          -moz-transition: All 0.4s ease-in-out;
+          -o-transition: All 0.4s ease-in-out;
+      }
+
+      .img4:hover {
+          transform: translate(0, -10px);
+          -webkit-transform: translate(0, -10px);
+          -moz-transform: translate(0, -10px);
+          -o-transform: translate(0, -10px);
+          -ms-transform: translate(0, -10px);
+      }
     </style>
     <!-- snippet (syntax highlighting for code examples)-->
     <script type="text/javascript" src="../js/demo/jquery.snippet.min.js"></script>
@@ -123,20 +184,20 @@
       </div>
       <hr>
       <article class="row">
-        <div class="one sixth three-up-small-tablet two-up-mobile padded bounceInLeft animated"><a href="http://placehold.it/900x500/2ecc71/ffffff/&amp;text=Image+1" title="View Larger Image" class="block green"><img src="/static/images/christmas-2014-rocket/bell-120px.png" alt="bell"></a></div>
-        <div class="one sixth three-up-small-tablet two-up-mobile padded rotateInDownLeft animated"><a href="http://placehold.it/900x500/3498db/ffffff/&amp;text=Image+2" title="View Larger Image" class="block blue"><img src="/static/images/christmas-2014-rocket/blackpeter-120px.png" alt="Image 2"></a></div>
-        <div class="one sixth three-up-small-tablet two-up-mobile padded bounceInDown animated"><a href="http://placehold.it/900x500/9b59b6/ffffff/&amp;text=Image+3" title="View Larger Image" class="block purple"><img src="/static/images/christmas-2014-rocket/calendarchristmas-120px.png" alt="Image 3" class="round"></a></div>
-        <div class="one sixth three-up-small-tablet two-up-mobile padded bounceInUp animated"><a href="http://placehold.it/900x500/f1c40f/ffffff/&amp;text=Image+4" title="View Larger Image" class="block yellow"><img src="/static/images/christmas-2014-rocket/candle-120px.png" alt="Image 4" class="round"></a></div>
-        <div class="one sixth three-up-small-tablet two-up-mobile padded rotateInUpRight animated"><a href="http://placehold.it/900x500/e67e22/ffffff/&amp;text=Image+5" title="View Larger Image" class="block orange"><img src="/static/images/christmas-2014-rocket/candy-120px.png" alt="Image 5" class="round"></a></div>
-        <div class="one sixth three-up-small-tablet two-up-mobile padded bounceInRight animated"><a href="http://placehold.it/900x500/e74c3c/ffffff/&amp;text=Image+6" title="View Larger Image" class="block red"><img src="/static/images/christmas-2014-rocket/christmas tree-120px.png" alt="Image 6" class="round"></a></div>
+        <div class="one sixth three-up-small-tablet two-up-mobile padded bounceInLeft animated"><a href="" title="View Larger Image" class="block green"><img src="/static/images/christmas-2014-rocket/bell-120px.png" alt="bell" class="img3"></a></div>
+        <div class="one sixth three-up-small-tablet two-up-mobile padded rotateInDownLeft animated"><a href="" title="View Larger Image" class="block blue"><img src="/static/images/christmas-2014-rocket/blackpeter-120px.png" alt="Image 2" class="img3"></a></div>
+        <div class="one sixth three-up-small-tablet two-up-mobile padded bounceInDown animated"><a href="" title="View Larger Image" class="block purple"><img src="/static/images/christmas-2014-rocket/calendarchristmas-120px.png" alt="Image 3" class="img3"></a></div>
+        <div class="one sixth three-up-small-tablet two-up-mobile padded bounceInUp animated"><a href="" title="View Larger Image" class="block yellow"><img src="/static/images/christmas-2014-rocket/candle-120px.png" alt="Image 4" class="img3"></a></div>
+        <div class="one sixth three-up-small-tablet two-up-mobile padded rotateInUpRight animated"><a href="" title="View Larger Image" class="block orange"><img src="/static/images/christmas-2014-rocket/candy-120px.png" alt="Image 5" class="img3"></a></div>
+        <div class="one sixth three-up-small-tablet two-up-mobile padded bounceInRight animated"><a href="" title="View Larger Image" class="block red"><img src="/static/images/christmas-2014-rocket/christmas tree-120px.png" alt="Image 6" class="img3"></a></div>
       </article>
       <article class="row">
-        <div class="one sixth three-up-small-tablet two-up-mobile padded bounceInLeft animated"><a href="http://placehold.it/900x500/f02475/ffffff/&amp;text=Image+7" title="View Larger Image" class="block pink"><img src="/static/images/christmas-2014-rocket/christmasball-120px.png" alt="Image 7"></a></div>
-        <div class="one sixth three-up-small-tablet two-up-mobile padded rotateInDownLeft animated"><a href="http://placehold.it/900x500/1abc9c/ffffff/&amp;text=Image+8" title="View Larger Image" class="block turquoise"><img src="/static/images/christmas-2014-rocket/christmasstar-120px.png" alt="Image 8"></a></div>
-        <div class="one sixth three-up-small-tablet two-up-mobile padded bounceInDown animated"><a href="http://placehold.it/900x500/34495e/ffffff/&amp;text=Image+9" title="View Larger Image" class="block asphalt"><img src="/static/images/christmas-2014-rocket/christmaswrench-120px.png" alt="Image 9"></a></div>
-        <div class="one sixth three-up-small-tablet two-up-mobile padded bounceInUp animated"><a href="http://placehold.it/900x500/2ecc71/ffffff/&amp;text=Image+10" title="View Larger Image" class="block green"><img src="/static/images/christmas-2014-rocket/cookie-120px.png" alt="Image 10"></a></div>
-        <div class="one sixth three-up-small-tablet two-up-mobile padded rotateInUpRight animated"><a href="http://placehold.it/900x500/3498db/ffffff/&amp;text=Image+11" title="View Larger Image" class="block blue"><img src="/static/images/christmas-2014-rocket/crystalball-120px.png" alt="Image 11"></a></div>
-        <div class="one sixth three-up-small-tablet two-up-mobile padded bounceInRight animated"><a href="http://placehold.it/900x500/9b59b6/ffffff/&amp;text=Image+12" title="View Larger Image" class="block purple"><img src="/static/images/christmas-2014-rocket/firestove-120px.png" alt="Image 12"></a></div>
+        <div class="one sixth three-up-small-tablet two-up-mobile padded bounceInLeft animated"><a href="http://placehold.it/900x500/f02475/ffffff/&amp;text=Image+7" title="View Larger Image" class="block pink"><img src="/static/images/christmas-2014-rocket/christmasball-120px.png" alt="Image 7" class="img3"></a></div>
+        <div class="one sixth three-up-small-tablet two-up-mobile padded rotateInDownLeft animated"><a href="http://placehold.it/900x500/1abc9c/ffffff/&amp;text=Image+8" title="View Larger Image" class="block turquoise"><img src="/static/images/christmas-2014-rocket/christmasstar-120px.png" alt="Image 8" class="img3"></a></div>
+        <div class="one sixth three-up-small-tablet two-up-mobile padded bounceInDown animated"><a href="http://placehold.it/900x500/34495e/ffffff/&amp;text=Image+9" title="View Larger Image" class="block asphalt"><img src="/static/images/christmas-2014-rocket/christmaswrench-120px.png" alt="Image 9" class="img3"></a></div>
+        <div class="one sixth three-up-small-tablet two-up-mobile padded bounceInUp animated"><a href="http://placehold.it/900x500/2ecc71/ffffff/&amp;text=Image+10" title="View Larger Image" class="block green"><img src="/static/images/christmas-2014-rocket/cookie-120px.png" alt="Image 10" class="img3"></a></div>
+        <div class="one sixth three-up-small-tablet two-up-mobile padded rotateInUpRight animated"><a href="http://placehold.it/900x500/3498db/ffffff/&amp;text=Image+11" title="View Larger Image" class="block blue"><img src="/static/images/christmas-2014-rocket/crystalball-120px.png" alt="Image 11" class="img3"></a></div>
+        <div class="one sixth three-up-small-tablet two-up-mobile padded bounceInRight animated"><a href="http://placehold.it/900x500/9b59b6/ffffff/&amp;text=Image+12" title="View Larger Image" class="block purple"><img src="/static/images/christmas-2014-rocket/firestove-120px.png" alt="Image 12" class="img3"></a></div>
       </article>
     </div>
     <footer class="gap-top bounceInUp animated">
