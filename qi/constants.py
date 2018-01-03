@@ -9,3 +9,5 @@ QI_PROC='proc'
 
 QI_JAVA_CMDLINE='javacmdline'
 QI_FILE_ROOT='fileroot'
+
+QI_QICAIXIANG='qicaixiang'
