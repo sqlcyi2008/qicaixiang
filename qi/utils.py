@@ -15,10 +15,9 @@ def write_redis(line):
 
 
 def read_redis():
-    global r
-    # str = r.rpop('qicaixiang')
+
     while True:
-        # list =  r.lrange(QI_QICAIXIANG,0,100)
+        global r
         line = r.rpop(QI_QICAIXIANG)
         if line:
             print(">>>" + str(line.decode(encoding="utf-8", errors="ignore")))

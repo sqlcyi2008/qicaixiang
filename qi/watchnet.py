@@ -1,31 +1,11 @@
 # !/usr/bin/env python
 # -*- coding:utf-8 -*-
 
-import redis
+
 import socket
 import dpkt
-
-pool = redis.ConnectionPool(host='127.0.0.1', port=6379)
-global r
-r = redis.Redis(connection_pool=pool)
-
-
-def write_redis(line):
-    global r
-    r.lpush("qicaixiang", line)
-
-
-def getip():
-    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    try:
-        # doesn't even have to be reachable
-        s.connect(('10.255.255.255', 0))
-        IP = s.getsockname()[0]
-    except:
-        IP = '127.0.0.1'
-    finally:
-        s.close()
-    return IP
+from qi.utils import *
+from qi.constants import *
 
 
 # 抓包进程执行代码:
@@ -40,7 +20,7 @@ def main():
         while True:
             raw_buffer = sniffer.recvfrom(65535)[0]
             ipp = dpkt.ip.IP(raw_buffer)
-            print("##"+str(ipp.data))
+            print("##" + str(ipp.data))
             if ipp.data.__class__.__name__ == 'TCP' and ipp.data.dport == 8080:
                 tcp = ''
                 try:

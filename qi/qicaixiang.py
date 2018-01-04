@@ -1,10 +1,87 @@
 # !/usr/bin/env python
 # -*- coding:utf-8 -*-
 
+import tornado.web
+import tornado.websocket
+import tornado.httpserver
+import tornado.ioloop
 import os
+import json
+from qi.constants import *
+from qi.utils import *
+
+
+class IndexPageHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.redirect('/static/docs/a.html')
+
+
+class TheQRCodeHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.render('theqrcode.png')
+
+
+# 远程启动进程
+class ProcessHandler(tornado.web.RequestHandler):
+    def get(self, name, action):
+        if (name == "code"):
+            print(name)
+        elif (name == "pack"):
+            print(name)
+        elif (name == "file"):
+            print(name)
+        elif (name == "all"):
+            print(name)
+            os.popen("python openredis.py")
+            os.popen("python watchproc.py")
+            os.popen("python openjdb.py")
+        else:
+            print(name)
+
+        self.write("{'status':'ok'}")
+
+
+# 返回网络包信息
+class RefreshHandler(tornado.web.RequestHandler):
+    def get(self):
+        ll = []
+        global r
+        for i in range(1000):
+            line = r.rpop(QI_QICAIXIANG)
+            if line:
+                line = str(line.decode(encoding="utf-8", errors="ignore"))
+                ll.append(line)
+        print("###" + str(ll))
+        self.write(json.dumps(ll))
+
+
+# 配置调试
+class DebuggerHandler(tornado.web.RequestHandler):
+    def post(self):
+        cmd = self.get_arguments("cmd")
+        global r
+        r.set(QI_JAVA_CMDLINE, cmd[0])
+
+        # self.write(cmd[0])
+
+
+class Application(tornado.web.Application):
+    def __init__(self):
+        handlers = [
+            (r'/', IndexPageHandler),
+            (r'/theqrcode.png', TheQRCodeHandler),
+            (r"/process/(\w*)/(\w*)", ProcessHandler),
+            (r'/debugger', DebuggerHandler),
+            (r'/refresh', RefreshHandler)
+        ]
+
+        settings = {'template_path': '.', 'static_path': '../static', 'static_url_prefix': '/static/'}
+        tornado.web.Application.__init__(self, handlers, **settings)
+
 
 if __name__ == '__main__':
-    os.system("python openredis.py")
-    os.system("python watchproc.py")
-    os.system("python openweb.py")
-    os.system("python openjdb.py")
+    print("访问地址:http://" + getip()+":7788/")
+    app = Application()
+    server = tornado.httpserver.HTTPServer(app)
+    server.listen(7788)
+    tornado.ioloop.IOLoop.instance().start()
