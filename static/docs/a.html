@@ -104,39 +104,45 @@
     </style>
     <!-- snippet (syntax highlighting for code examples)-->
     <script type="text/javascript" src="../js/demo/jquery.snippet.min.js"></script>
-    <link type="text/css" rel="stylesheet" href="../css/demo/jquery.snippet.css"><script type="text/javascript">
-(function() {
+    <link type="text/css" rel="stylesheet" href="../css/demo/jquery.snippet.css">
+    <script type="text/javascript">
+    function startMon(type){
+        $.get(type);
+        alert("ok!");
+    }
 
-  $(document).ready(function() {
+  (function() {
 
-    $(".xiang a").click(function () {
-        var val=$(this).attr("style");
-        if(typeof(val) == "undefined"){
-            $(this).css('border-bottom','1px solid #ff0000');
-        }else{
-            $(this).removeAttr('style');
-        }
+    $(document).ready(function() {
+
+      $(".xiang a").click(function () {
+          var val=$(this).attr("style");
+          if(typeof(val) == "undefined"){
+              $(this).css('border-bottom','1px solid #ff0000');
+          }else{
+              $(this).removeAttr('style');
+          }
+      });
+
+      $('pre[data-lang="html"]').snippet("html", {
+        style: "groundwork",
+        clipboard: "../js/demo/ZeroClipboard.swf"
+      });
+      $('pre[data-lang="css"]').snippet("css", {
+        style: "groundwork",
+        clipboard: "../js/demo/ZeroClipboard.swf"
+      });
+      $('pre[data-lang="sass"]').snippet("sass", {
+        style: "groundwork",
+        clipboard: "../js/demo/ZeroClipboard.swf"
+      });
+      return $('pre[data-lang="js"]').snippet("javascript", {
+        style: "groundwork",
+        clipboard: "../js/demo/ZeroClipboard.swf"
+      });
     });
 
-    $('pre[data-lang="html"]').snippet("html", {
-      style: "groundwork",
-      clipboard: "../js/demo/ZeroClipboard.swf"
-    });
-    $('pre[data-lang="css"]').snippet("css", {
-      style: "groundwork",
-      clipboard: "../js/demo/ZeroClipboard.swf"
-    });
-    $('pre[data-lang="sass"]').snippet("sass", {
-      style: "groundwork",
-      clipboard: "../js/demo/ZeroClipboard.swf"
-    });
-    return $('pre[data-lang="js"]').snippet("javascript", {
-      style: "groundwork",
-      clipboard: "../js/demo/ZeroClipboard.swf"
-    });
-  });
-
-}).call(this);
+  }).call(this);
 </script>
   </head>
   <body>
@@ -197,20 +203,28 @@
       </div>
       <hr>
       <article class="row">
-        <div class="one sixth three-up-small-tablet two-up-mobile padded bounceInLeft animated xiang">直如朱丝绳<a href="javascript:void(0);" title="View Larger Image" class="block green"><img src="/static/images/christmas-2014-rocket/bell-120px.png" alt="bell" class="img3"></a></div>
-        <div class="one sixth three-up-small-tablet two-up-mobile padded rotateInDownLeft animated xiang">清如玉壶冰<a href="javascript:void(0);" title="View Larger Image" class="block blue"><img src="/static/images/christmas-2014-rocket/blackpeter-120px.png" alt="Image 2" class="img3"></a></div>
-        <div class="one sixth three-up-small-tablet two-up-mobile padded bounceInDown animated xiang">何惭宿昔意<a href="javascript:void(0);" title="View Larger Image" class="block purple"><img src="/static/images/christmas-2014-rocket/calendarchristmas-120px.png" alt="Image 3" class="img3"></a></div>
-        <div class="one sixth three-up-small-tablet two-up-mobile padded bounceInUp animated xiang">猜恨坐相仍<a href="javascript:void(0);" title="View Larger Image" class="block yellow"><img src="/static/images/christmas-2014-rocket/candle-120px.png" alt="Image 4" class="img3"></a></div>
-        <div class="one sixth three-up-small-tablet two-up-mobile padded rotateInUpRight animated xiang">人情贱恩旧<a href="javascript:void(0);" title="View Larger Image" class="block orange"><img src="/static/images/christmas-2014-rocket/candy-120px.png" alt="Image 5" class="img3"></a></div>
-        <div class="one sixth three-up-small-tablet two-up-mobile padded bounceInRight animated xiang">世义逐衰兴<a href="javascript:void(0);" title="View Larger Image" class="block red"><img src="/static/images/christmas-2014-rocket/christmas tree-120px.png" alt="Image 6" class="img3"></a></div>
+        <div class="one tenth three-up-small-tablet two-up-mobile padded bounceInLeft animated xiang">全部启动<a href="javascript:startMon('/process/all/start');" title="View Larger Image" class="block green"><img src="/static/images/christmas-2014-rocket/bell-120px.png" alt="bell" class="img3"></a></div>
+        <div class="one tenth three-up-small-tablet two-up-mobile padded rotateInDownLeft animated xiang">智能快照<a href="javascript:void(0);" title="View Larger Image" class="block blue"><img src="/static/images/christmas-2014-rocket/blackpeter-120px.png" alt="Image 2" class="img3"></a></div>
+        <div class="one tenth three-up-small-tablet two-up-mobile padded bounceInDown animated xiang">深度爬虫<a href="javascript:void(0);" title="View Larger Image" class="block purple"><img src="/static/images/christmas-2014-rocket/calendarchristmas-120px.png" alt="Image 3" class="img3"></a></div>
+        <div class="one tenth three-up-small-tablet two-up-mobile padded bounceInUp animated xiang">端口转发<a href="javascript:void(0);" title="View Larger Image" class="block yellow"><img src="/static/images/christmas-2014-rocket/candle-120px.png" alt="Image 4" class="img3"></a></div>
+        <div class="one tenth three-up-small-tablet two-up-mobile padded rotateInUpRight animated xiang">网络抓包<a href="javascript:startMon('/process/pack/start');" title="View Larger Image" class="block orange"><img src="/static/images/christmas-2014-rocket/candy-120px.png" alt="Image 5" class="img3"></a></div>
+        <div class="one tenth three-up-small-tablet two-up-mobile padded bounceInRight animated xiang">代码调试<a href="javascript:startMon('/process/code/start');" title="View Larger Image" class="block red"><img src="/static/images/christmas-2014-rocket/christmas tree-120px.png" alt="Image 6" class="img3"></a></div>
+        <div class="one tenth three-up-small-tablet two-up-mobile padded bounceInLeft animated xiang">文件监控<a href="javascript:startMon('/process/file/start');" title="View Larger Image" class="block green"><img src="/static/images/christmas-2014-rocket/bell-120px.png" alt="bell" class="img3"></a></div>
+        <div class="one tenth three-up-small-tablet two-up-mobile padded rotateInDownLeft animated xiang">清如玉壶冰<a href="javascript:void(0);" title="View Larger Image" class="block blue"><img src="/static/images/christmas-2014-rocket/blackpeter-120px.png" alt="Image 2" class="img3"></a></div>
+        <div class="one tenth three-up-small-tablet two-up-mobile padded bounceInDown animated xiang">何惭宿昔意<a href="javascript:void(0);" title="View Larger Image" class="block purple"><img src="/static/images/christmas-2014-rocket/calendarchristmas-120px.png" alt="Image 3" class="img3"></a></div>
+        <div class="one tenth three-up-small-tablet two-up-mobile padded bounceInUp animated xiang">猜恨坐相仍<a href="javascript:void(0);" title="View Larger Image" class="block yellow"><img src="/static/images/christmas-2014-rocket/candle-120px.png" alt="Image 4" class="img3"></a></div>
       </article>
       <article class="row">
-        <div class="one sixth three-up-small-tablet two-up-mobile padded bounceInLeft animated xiang"><a href="javascript:void(0);" title="View Larger Image" class="block pink"><img src="/static/images/christmas-2014-rocket/christmasball-120px.png" alt="Image 7" class="img3"></a></div>
-        <div class="one sixth three-up-small-tablet two-up-mobile padded rotateInDownLeft animated xiang"><a href="javascript:void(0);" title="View Larger Image" class="block turquoise"><img src="/static/images/christmas-2014-rocket/christmasstar-120px.png" alt="Image 8" class="img3"></a></div>
-        <div class="one sixth three-up-small-tablet two-up-mobile padded bounceInDown animated xiang"><a href="javascript:void(0);" title="View Larger Image" class="block asphalt"><img src="/static/images/christmas-2014-rocket/christmaswrench-120px.png" alt="Image 9" class="img3"></a></div>
-        <div class="one sixth three-up-small-tablet two-up-mobile padded bounceInUp animated xiang"><a href="javascript:void(0);" title="View Larger Image" class="block green"><img src="/static/images/christmas-2014-rocket/cookie-120px.png" alt="Image 10" class="img3"></a></div>
-        <div class="one sixth three-up-small-tablet two-up-mobile padded rotateInUpRight animated xiang"><a href="javascript:void(0);" title="View Larger Image" class="block blue"><img src="/static/images/christmas-2014-rocket/crystalball-120px.png" alt="Image 11" class="img3"></a></div>
-        <div class="one sixth three-up-small-tablet two-up-mobile padded bounceInRight animated xiang"><a href="javascript:void(0);" title="View Larger Image" class="block purple"><img src="/static/images/christmas-2014-rocket/firestove-120px.png" alt="Image 12" class="img3"></a></div>
+        <div class="one tenth three-up-small-tablet two-up-mobile padded bounceInLeft animated xiang">食苗实硕鼠<a href="javascript:void(0);" title="View Larger Image" class="block pink"><img src="/static/images/christmas-2014-rocket/christmasball-120px.png" alt="Image 7" class="img3"></a></div>
+        <div class="one tenth three-up-small-tablet two-up-mobile padded rotateInDownLeft animated xiang">点白信苍蝇<a href="javascript:void(0);" title="View Larger Image" class="block turquoise"><img src="/static/images/christmas-2014-rocket/christmasstar-120px.png" alt="Image 8" class="img3"></a></div>
+        <div class="one tenth three-up-small-tablet two-up-mobile padded bounceInDown animated xiang">凫鹄远成美<a href="javascript:void(0);" title="View Larger Image" class="block asphalt"><img src="/static/images/christmas-2014-rocket/christmaswrench-120px.png" alt="Image 9" class="img3"></a></div>
+        <div class="one tenth three-up-small-tablet two-up-mobile padded bounceInUp animated xiang">薪刍前见凌<a href="javascript:void(0);" title="View Larger Image" class="block green"><img src="/static/images/christmas-2014-rocket/cookie-120px.png" alt="Image 10" class="img3"></a></div>
+        <div class="one tenth three-up-small-tablet two-up-mobile padded rotateInUpRight animated xiang">申黜褒女进<a href="javascript:void(0);" title="View Larger Image" class="block blue"><img src="/static/images/christmas-2014-rocket/crystalball-120px.png" alt="Image 11" class="img3"></a></div>
+        <div class="one tenth three-up-small-tablet two-up-mobile padded bounceInRight animated xiang">班去赵姬升<a href="javascript:void(0);" title="View Larger Image" class="block purple"><img src="/static/images/christmas-2014-rocket/firestove-120px.png" alt="Image 12" class="img3"></a></div>
+        <div class="one tenth three-up-small-tablet two-up-mobile padded bounceInLeft animated xiang">周王日沦惑<a href="javascript:void(0);" title="View Larger Image" class="block pink"><img src="/static/images/christmas-2014-rocket/christmasball-120px.png" alt="Image 7" class="img3"></a></div>
+        <div class="one tenth three-up-small-tablet two-up-mobile padded rotateInDownLeft animated xiang">汉帝益嗟称<a href="javascript:void(0);" title="View Larger Image" class="block turquoise"><img src="/static/images/christmas-2014-rocket/christmasstar-120px.png" alt="Image 8" class="img3"></a></div>
+        <div class="one tenth three-up-small-tablet two-up-mobile padded bounceInDown animated xiang">心赏犹难恃<a href="javascript:void(0);" title="View Larger Image" class="block asphalt"><img src="/static/images/christmas-2014-rocket/christmaswrench-120px.png" alt="Image 9" class="img3"></a></div>
+        <div class="one tenth three-up-small-tablet two-up-mobile padded bounceInUp animated xiang">貌恭岂易凭<a href="javascript:void(0);" title="View Larger Image" class="block green"><img src="/static/images/christmas-2014-rocket/cookie-120px.png" alt="Image 10" class="img3"></a></div>
       </article>
     </div>
     <footer class="gap-top bounceInUp animated">

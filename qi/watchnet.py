@@ -20,7 +20,7 @@ def main():
         while True:
             raw_buffer = sniffer.recvfrom(65535)[0]
             ipp = dpkt.ip.IP(raw_buffer)
-            print("##" + str(ipp.data))
+            #print("##" + str(ipp.data))
             if ipp.data.__class__.__name__ == 'TCP' and ipp.data.dport == 8080:
                 tcp = ''
                 try:

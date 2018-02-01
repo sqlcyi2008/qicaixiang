@@ -16,7 +16,7 @@ def stdoutThread(var):
         if not line:
             break
         line = line.decode('gbk')
-        # print(line)
+        # print(line) .encode('iso-8859-1').decode('gbk')
         write_redis("code->" + line)
         if 'Server startup in' in line:
             msg = 'trace go method exits\r\n'.encode('utf-8')
