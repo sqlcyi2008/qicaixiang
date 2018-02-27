@@ -15,12 +15,13 @@ def write_redis(line):
 
 
 def read_redis():
-
     while True:
         global r
         line = r.rpop(QI_QICAIXIANG)
         if line:
-            print(">>>" + str(line.decode(encoding="utf-8", errors="ignore")))
+            print(str(line.decode(encoding="utf-8", errors="ignore")))
+
+
 
 def rpop_redis():
     global r
