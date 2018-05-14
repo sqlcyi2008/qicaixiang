@@ -3,6 +3,8 @@
 
 import re
 
+msg = "help set\n".encode('utf-8')
+
 file = open("d:/login.txt")
 file2 = open("d:/login2.txt","w")
 
