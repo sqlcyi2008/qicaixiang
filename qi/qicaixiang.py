@@ -13,7 +13,7 @@ from qi.utils import *
 
 class IndexPageHandler(tornado.web.RequestHandler):
     def get(self):
-        self.redirect('/static/docs/a.html')
+        self.redirect('/static/index.html')
 
 
 class TheQRCodeHandler(tornado.web.RequestHandler):
