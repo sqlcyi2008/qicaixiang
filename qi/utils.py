@@ -9,6 +9,10 @@ pool = redis.ConnectionPool(host='127.0.0.1', port=6379)
 global r
 r = redis.Redis(connection_pool=pool)
 
+def push_redis(key,line):
+    global r
+    r.lpush(key, line)
+
 def write_redis(line):
     global r
     r.lpush(QI_QICAIXIANG, line)

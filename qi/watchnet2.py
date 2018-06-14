@@ -6,13 +6,12 @@ import time
 from qi.utils import *
 from qi.constants import *
 
-
 # 抓包进程执行代码:
 def main():
     sniffer = socket.socket(socket.AF_INET, socket.SOCK_RAW, socket.IPPROTO_IP)
-    myip = '127.0.0.1'
-    print("@" + myip)
-    sniffer.bind((myip, 0))
+    sniffer_ip = '127.0.0.1'
+    print("@" + sniffer_ip)
+    sniffer.bind((sniffer_ip, 0))
     sniffer.setsockopt(socket.IPPROTO_IP, socket.IP_HDRINCL, 1)
     # receive all packages
     sniffer.ioctl(socket.SIO_RCVALL, socket.RCVALL_ON)
@@ -25,12 +24,17 @@ def main():
                 dport = ipp.data.dport;
                 sport = ipp.data.sport;
                 dict = {'8080': '8080', '3306': '3306', '1433': '1433'}
+
+                if dport == 6379 or sport == 6379:
+                    print("redis io!")
+
                 tcp = ipp.data.data.decode(encoding="utf-8", errors="ignore")
                 if str(sport) in dict:
                     try:
                         t = time.time()
                         # print(str(int(round(t * 1000))) + "##" + tt + ":" + str(len(str(ipp.data)))+"@"+str(dport))
-                        print("QI_NET_RECV_" + str(sport))
+                        print("QI_NET_RECV_" + str(sport)+"||"+str(int(round(t * 1000))) + "##" +tcp)
+                        push_redis("QI_NET_RECV_" + str(sport),str(int(round(t * 1000))) + "##" +tcp)
                     except Exception as e:
                         print(e)
 
@@ -38,7 +42,8 @@ def main():
                     try:
                         t = time.time()
                         # print(str(int(round(t * 1000))) + "##" + tt + ":" + str(len(str(ipp.data)))+"@"+str(dport))
-                        print("QI_NET_SEND_" + str(dport))
+                        print("QI_NET_SEND_" + str(dport)+"||"+str(int(round(t * 1000))) + "##" +tcp)
+                        push_redis("QI_NET_SEND_" + str(dport),str(int(round(t * 1000))) + "##" +tcp)
                     except Exception as e:
                         print(e)
     except KeyboardInterrupt:
