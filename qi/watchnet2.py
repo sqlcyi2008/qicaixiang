@@ -23,17 +23,18 @@ def main():
             if tt == 'TCP':
                 dport = ipp.data.dport;
                 sport = ipp.data.sport;
-                dict = {'8080': '8080', '3306': '3306', '1433': '1433'}
+                dict = {'9090': '9090', '3306': '3306', '1433': '1433'}
 
                 if dport == 6379 or sport == 6379:
-                    print("redis io!")
+                    #print("redis io!")
+                    pass
 
                 tcp = ipp.data.data.decode(encoding="utf-8", errors="ignore")
                 if str(sport) in dict:
                     try:
                         t = time.time()
                         # print(str(int(round(t * 1000))) + "##" + tt + ":" + str(len(str(ipp.data)))+"@"+str(dport))
-                        print("QI_NET_RECV_" + str(sport)+"||"+str(int(round(t * 1000))) + "##" +tcp)
+                        print("QI_NET_RECV_" + str(sport)+"||"+str(int(round(t * 1000))) + "##")
                         push_redis("QI_NET_RECV_" + str(sport),str(int(round(t * 1000))) + "##" +tcp)
                     except Exception as e:
                         print(e)
@@ -42,7 +43,7 @@ def main():
                     try:
                         t = time.time()
                         # print(str(int(round(t * 1000))) + "##" + tt + ":" + str(len(str(ipp.data)))+"@"+str(dport))
-                        print("QI_NET_SEND_" + str(dport)+"||"+str(int(round(t * 1000))) + "##" +tcp)
+                        print("QI_NET_SEND_" + str(dport)+"||"+str(int(round(t * 1000))) + "##")
                         push_redis("QI_NET_SEND_" + str(dport),str(int(round(t * 1000))) + "##" +tcp)
                     except Exception as e:
                         print(e)
