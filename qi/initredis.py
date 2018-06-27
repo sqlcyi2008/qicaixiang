@@ -22,10 +22,11 @@ redispath = path + '/redis/'
 if os.path.exists(redispath):
     # 停止服务
     os.system(redispath + 'redis-server.exe  --service-stop')
+    os.system(redispath + 'redis-server.exe  --service-uninstall')
     shutil.rmtree(redispath)
     os.remove(rediszip)
 
-# exit()
+exit()
 
 url = 'https://github.com/ServiceStack/redis-windows/raw/master/downloads/redis-latest.zip'
 urllib.request.urlretrieve(url, path + '/redis-latest.zip', callback)
