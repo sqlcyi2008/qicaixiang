@@ -3,9 +3,7 @@
 import urllib.request
 import os
 import zipfile
-
 import shutil
-
 
 def callback(a, b, c):
     '''回调函数
@@ -18,18 +16,16 @@ def callback(a, b, c):
         per = 100
     print('%.2f%%' % per)
 
-
 path = os.path.abspath('.').replace('\\', '/')
 rediszip = path + '/redis-latest.zip'
 redispath = path + '/redis/'
 if os.path.exists(redispath):
     # 停止服务
     os.system(redispath + 'redis-server.exe  --service-stop')
-    #os.removedirs(redispath)
     shutil.rmtree(redispath)
     os.remove(rediszip)
 
-exit()
+# exit()
 
 url = 'https://github.com/ServiceStack/redis-windows/raw/master/downloads/redis-latest.zip'
 urllib.request.urlretrieve(url, path + '/redis-latest.zip', callback)
