@@ -14,9 +14,9 @@ def pack_callback(packet):
 
 
 print(ifaces)
-sniff(filter="tcp port 3306 or tcp port 9090", prn=pack_callback, iface="Npcap Loopback Adapter",
-      count=0)
-
+sniff(filter="tcp port 80 or tcp port 9090", prn=pack_callback, iface="Intel(R) Ethernet Connection I219-V",count=0)
+#sniff(filter="tcp any", prn=pack_callback, iface="Intel(R) Ethernet Connection I219-V",count=0)
+#sniff(iface="Intel(R) Ethernet Connection I219-V", prn=lambda x: x.show())
 # 11     Npcap Loopback Adapter                    127.0.0.1     00:00:00:00:00:00
 # 3      Sangfor SSL VPN CS Support System VNIC                  00:FF:0F:D9:74:30
 # 4      Intel(R) Dual Band Wireless-AC 8260       10.72.91.190  F0:D5:BF:4A:5E:93
