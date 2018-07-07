@@ -2,20 +2,24 @@
 # -*- coding:utf-8 -*-
 
 from scapy.all import *
+from qi.utils import *
 
+count = 0
 
 def pack_callback(packet):
-    p2 = packet.show()
+    p2 = packet.show(dump=True)
     print(p2)
-    if packet[TCP].payload:
-        mail_packet = str(packet[TCP].payload)
-        if "user" in mail_packet.lower() or "pass" in mail_packet.lower():
-            print("Server:%s" % packet[IP].dst)
-            print("%s" % packet[TCP].payload)
+    print('######'+str(packet[TCP].dport))
+    #push_redis("QI_NET_RECV_" + str(sport), str(int(round(t * 1000))) + "##" + tcp)
+
+    global count
+    count = count +1
+    #push_redis('QI_NET_PACKET', count)
 
 
 print(ifaces)
-sniff(filter="tcp port 80 or tcp port 9090", prn=pack_callback, iface="Intel(R) Ethernet Connection I219-V", count=0)
+os.system('netstat -aon|findstr "LISTENING"')
+sniff(filter="tcp port 80 or tcp port 9090", prn=pack_callback, iface="Intel(R) Dual Band Wireless-AC 8260", count=0)
 # sniff(filter="tcp any", prn=pack_callback, iface="Intel(R) Ethernet Connection I219-V",count=0)
 # sniff(iface="Intel(R) Ethernet Connection I219-V", prn=lambda x: x.show())
 # 11     Npcap Loopback Adapter                    127.0.0.1     00:00:00:00:00:00
