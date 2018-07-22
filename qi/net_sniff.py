@@ -24,8 +24,8 @@ def pack_callback(packet):
     '''
     sport = str(packet[TCP].sport)
     dport = str(packet[TCP].dport)
-    print('sport######' + sport)
-    print('dport######' + dport)
+    #print('sport######' + sport)
+    #print('dport######' + dport)
 
     pdict = {'80': '80', '3306': '3306', 'http': 'http'}
     t = time.time()

@@ -13,7 +13,7 @@ from qi.utils import *
 
 class IndexPageHandler(tornado.web.RequestHandler):
     def get(self):
-        self.redirect('/static/index.html')
+        self.redirect('/web/index.html')
 
 
 class TheQRCodeHandler(tornado.web.RequestHandler):
@@ -47,14 +47,20 @@ class RefreshHandler(tornado.web.RequestHandler):
     def get(self):
         ll = []
         global r
+        count = r.llen("QI_NET_SEND_80")
+
+        #ltrim QI_NET_SEND_80 1 0
+        '''
         for i in range(1000):
             line = r.rpop(QI_QICAIXIANG)
             if line:
                 line = str(line.decode(encoding="utf-8", errors="ignore"))
                 ll.append(line)
         print("###" + str(ll))
-        self.write(json.dumps(ll))
 
+        self.write(json.dumps(ll))
+        '''
+        self.write('packet count:'+str(count))
 
 # 配置调试
 class DebuggerHandler(tornado.web.RequestHandler):
@@ -76,7 +82,7 @@ class Application(tornado.web.Application):
             (r'/refresh', RefreshHandler)
         ]
 
-        settings = {'template_path': '.', 'static_path': '../static', 'static_url_prefix': '/static/'}
+        settings = {'template_path': '.', 'static_path': 'web', 'static_url_prefix': '/web/'}
         tornado.web.Application.__init__(self, handlers, **settings)
 
 
