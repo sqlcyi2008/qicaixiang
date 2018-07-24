@@ -34,7 +34,7 @@ class ProcessHandler(tornado.web.RequestHandler):
             print(name)
             os.popen("python openredis.py")
             os.popen("python watchproc.py")
-            os.popen("python openjdb.py")
+            os.popen("python jdb_start.py")
             os.popen("python watchnet.py")
         else:
             print(name)
