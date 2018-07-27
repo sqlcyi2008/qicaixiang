@@ -13,7 +13,7 @@ from qi.utils import *
 
 class IndexPageHandler(tornado.web.RequestHandler):
     def get(self):
-        self.redirect('/web/index.html')
+        self.redirect('/web/admin.html')
 
 
 class TheQRCodeHandler(tornado.web.RequestHandler):
@@ -48,8 +48,12 @@ class RefreshHandler(tornado.web.RequestHandler):
         ll = []
         global r
         count = r.llen("QI_NET_SEND_80")
-
-        #ltrim QI_NET_SEND_80 1 0
+        for key in r.keys(pattern='QI_*'):
+            key = str(key, encoding="utf-8")
+            #print(key + "#" + str(r.llen(key)))
+            ll.append(key + "#" + str(r.llen(key)))
+        # print(r.keys(pattern='QI_*'))
+        # ltrim QI_NET_SEND_80 1 0
         '''
         for i in range(1000):
             line = r.rpop(QI_QICAIXIANG)
@@ -57,10 +61,9 @@ class RefreshHandler(tornado.web.RequestHandler):
                 line = str(line.decode(encoding="utf-8", errors="ignore"))
                 ll.append(line)
         print("###" + str(ll))
-
-        self.write(json.dumps(ll))
         '''
-        self.write('packet count:'+str(count))
+        self.write(json.dumps(ll))
+
 
 # 配置调试
 class DebuggerHandler(tornado.web.RequestHandler):
@@ -87,7 +90,7 @@ class Application(tornado.web.Application):
 
 
 if __name__ == '__main__':
-    print("访问地址:http://" + getip()+":7788/")
+    print("访问地址:http://" + getip() + ":7788/")
     app = Application()
     server = tornado.httpserver.HTTPServer(app)
     server.listen(7788)

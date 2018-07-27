@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>七彩箱</title>
+    <style type="text/css">
+		div {background-color:blue;color:white;margin:1px 1px 1px 1px;width:200px;height:50px;float:left;}
+    </style>
+</head>
+<body>
+<script src="https://cdn.bootcss.com/jquery/1.9.1/jquery.js"></script>
+<script type="text/javascript">
+    setInterval(function () {
+
+	$.ajax({
+    type : "get",
+    async : true,
+    url : "/refresh",
+    dataType:"json",
+    success:function(result) {
+        $("body").empty();
+        for(let index in result) {
+        $("<div>"+result[index].replace('QI_NET_','').replace('#','<br>')+"</div>").appendTo("body");
+    };
+
+   },
+    error : function(errorMsg) {
+    }
+});
+}, 2000);
+</script>
+</body>
+</html>
