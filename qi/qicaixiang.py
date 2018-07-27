@@ -50,8 +50,11 @@ class RefreshHandler(tornado.web.RequestHandler):
         count = r.llen("QI_NET_SEND_80")
         for key in r.keys(pattern='QI_*'):
             key = str(key, encoding="utf-8")
-            #print(key + "#" + str(r.llen(key)))
-            ll.append(key + "#" + str(r.llen(key)))
+            # print(key + "#" + str(r.llen(key)))
+            if key.startswith('QI_PROC'):
+                ll.append(key + "#" + str(r.lindex('QI_PROC_127.0.0.1', 0), encoding="utf-8"))
+            else:
+                ll.append(key + "#" + str(r.llen(key)))
         # print(r.keys(pattern='QI_*'))
         # ltrim QI_NET_SEND_80 1 0
         '''

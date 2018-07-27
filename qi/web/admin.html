@@ -4,10 +4,17 @@
     <meta charset="UTF-8">
     <title>七彩箱</title>
     <style type="text/css">
-		div {background-color:blue;color:white;margin:1px 1px 1px 1px;width:200px;height:50px;float:left;}
+		.xiang {background-color:blue;color:white;margin:1px 1px 1px 1px;width:200px;height:50px;float:left;}
+		.qi {background-color:gray;color:white;margin:1px 1px 1px 1px;width:100%;height:100%;float:left;}
+
     </style>
 </head>
 <body>
+<div class="qi" id="tools">
+    <div class="xiang" id="tomcat">tomcat</div>
+    <div class="xiang" id="redis">redis</div>
+</div>
+<div class="qi" id="main"></div>
 <script src="https://cdn.bootcss.com/jquery/1.9.1/jquery.js"></script>
 <script type="text/javascript">
     setInterval(function () {
@@ -18,9 +25,9 @@
     url : "/refresh",
     dataType:"json",
     success:function(result) {
-        $("body").empty();
+        $("#main").empty();
         for(let index in result) {
-        $("<div>"+result[index].replace('QI_NET_','').replace('#','<br>')+"</div>").appendTo("body");
+        $("<div class='xiang'>"+result[index].replace('QI_NET_','').replace('#','<br>')+"</div>").appendTo("#main");
     };
 
    },
@@ -28,6 +35,7 @@
     }
 });
 }, 2000);
+
 </script>
 </body>
 </html>
