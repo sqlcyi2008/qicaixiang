@@ -9,32 +9,50 @@ pool = redis.ConnectionPool(host='127.0.0.1', port=6379)
 global r
 r = redis.Redis(connection_pool=pool)
 
-def push_redis(key,line):
+
+def push_redis(key, line):
     global r
     r.lpush(key, line)
+
+
+def lpush_redis(key, line):
+    global r
+    r.lpush(key, line)
+
+
+def brpop_redis(key):
+    global r
+    #返回值为元组
+    el = r.brpop(key)
+    return el
+
 
 def write_redis(line):
     global r
     r.lpush(QI_QICAIXIANG, line)
 
+
 def read_redis():
     while True:
         global r
-        #line = r.rpop(QI_QICAIXIANG)
-        line = r.brpop(QI_QICAIXIANG) #阻塞模式
+        # line = r.rpop(QI_QICAIXIANG)
+        line = r.brpop(QI_QICAIXIANG)  # 阻塞模式
         if line:
             print(str(line[1].decode(encoding="utf-8", errors="ignore")))
+
 
 def write_event_redis(event):
     global r
     r.lpush(QI_EVENT_QUEUE, event)
 
+
 def read_event_redis():
     while True:
         global r
-        line = r.brpop(QI_QICAIXIANG) #阻塞模式
+        line = r.brpop(QI_QICAIXIANG)  # 阻塞模式
         if line:
             print(str(line[1].decode(encoding="utf-8", errors="ignore")))
+
 
 def rpop_redis():
     global r
