@@ -1,47 +1,17 @@
 # !/usr/bin/env python
 # -*- coding:utf-8 -*-
 
-import re
+'''
+python3 安装scapy-python3
+注：linux，可能需要以root登陆，避免出现permission error
+Scapy还包含内建函数arping(),该函数实现的功能和以上的两个命令类似：
+arping("192.168.1.*")
+'''
+from scapy.all import *
+conf.verb = 0
 
-msg = "help set\n".encode('utf-8')
+p = scapy.all.IP(dst="163.com")/scapy.all.TCP()
+r = sr1(p)
+print(r.summary())
 
-file = open("d:/login.txt")
-file2 = open("d:/login2.txt","w")
-
-length = []
-
-while 1:
-    lines = file.readlines(100000)
-    if not lines:
-        break
-    for line in lines:
-        line = re.sub(r'{[^{}]*}', '', line) #去除大括号
-        line = re.sub(r'"(.*)"', '', line) #去除双引号
-        line = re.sub(r'\d+,\d+?', '', line) #去除数字中的逗号
-        line = re.sub(r', id=', '# id=', line) #去除返回对象中的逗号
-
-        pattern = re.compile('"(.*)"')
-
-        p = re.compile(r'\d+,\d+?')
-
-        ss = line.split(',')
-        ll = len(ss)
-
-        length.append(ll)
-        #print(len(ss))
-        if ll == 2:
-            print(line)
-        #file2.write(line)
-
-        if ll ==3:
-            file2.write(str(ss[1]).strip()+"\n")
-
-        if ll ==4:
-            file2.write(str(ss[2]).strip()+"\n")
-
-
-print(sorted(length))
-
-file.close()
-file2.close()
-
+#https://nmap.org/npcap/dist/npcap-0.99-r6.exe
