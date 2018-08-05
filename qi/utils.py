@@ -15,15 +15,22 @@ def push_redis(key, line):
     r.lpush(key, line)
 
 
-def lpush_redis(key, line):
+def list_lpush(key, line):
     global r
     r.lpush(key, line)
 
 
-def brpop_redis(key):
+def list_brpop(key):
     global r
-    #返回值为元组
+    # 返回值为元组
     el = r.brpop(key)
+    return el
+
+
+def list_index(key,i):
+    global r
+    # 返回值为元组
+    el = r.lindex(key,i)
     return el
 
 
