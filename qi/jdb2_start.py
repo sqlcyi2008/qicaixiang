@@ -22,6 +22,7 @@ def stdoutThread(var):
         global proc
         line = proc.stdout.readline()
         print(line.decode('gbk'), end='')
+        lpush_redis('QI-JDB-OUT',line.decode('gbk'))
 
 
 # 标准输入线程
