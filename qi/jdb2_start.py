@@ -28,9 +28,9 @@ def stdoutThread(var):
 # 标准输入线程
 def stdinThread(var):
     while True:
+        # first = list_index('QI-JDB-OUT',1)
+        # print(first.decode())
         el = list_brpop('QI-JDB')
-        print(el[1].decode())
-
         time.sleep(1)
         msgInput(el[1].decode())
 
