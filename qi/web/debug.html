@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>七彩箱</title>
+    <style type="text/css">
+		.xiang {background-color:blue;color:white;margin:1px 1px 1px 1px;width:200px;height:50px;float:left;}
+		.qi {background-color:gray;color:white;margin:1px 1px 1px 1px;width:100%;height:100%;float:left;}
+    </style>
+</head>
+<body>
+<div class="qi" id="tools">
+    <div class="xiang" id="tomcat">tomcat</div>
+    <div class="xiang" id="jdb">jdb</div>
+</div>
+<div class="qi" id="main">
+    <div class="xiang">cont</div>
+    <div class="xiang">classes</div>
+    <div class="xiang">stop at aa.bb:12</div>
+    <div class="xiang">exit</div>
+</div>
+<script src="https://cdn.bootcss.com/jquery/1.9.1/jquery.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(".xiang").click(function(){
+            //alert('#'+$(this).text());
+            $(this).hide();
+            $.get("/jdbcmd/"+$(this).text());
+       });
+    });
+
+</script>
+</body>
+</html>

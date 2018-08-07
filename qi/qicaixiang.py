@@ -9,6 +9,7 @@ import os
 import json
 from qi.constants import *
 from qi.utils import *
+import subprocess
 
 
 class IndexPageHandler(tornado.web.RequestHandler):
@@ -20,6 +21,16 @@ class TheQRCodeHandler(tornado.web.RequestHandler):
     def get(self):
         self.render('theqrcode.png')
 
+# jdb执行命令
+class JdbCmdHandler(tornado.web.RequestHandler):
+    def get(self, cmd):
+        if cmd == 'jdb':
+            #os.system()
+            #os.startfile('jdb2_start.py')
+            subprocess.Popen('python jdb2_start.py')
+        else:
+            list_lpush('QI-JDB',str(cmd))
+        self.write("{'status':'ok'}")
 
 # 远程启动进程
 class ProcessHandler(tornado.web.RequestHandler):
@@ -69,13 +80,9 @@ class RefreshHandler(tornado.web.RequestHandler):
 
 
 # 配置调试
-class DebuggerHandler(tornado.web.RequestHandler):
-    def post(self):
-        cmd = self.get_arguments("cmd")
-        global r
-        r.set(QI_JAVA_CMDLINE, cmd[0])
-
-        # self.write(cmd[0])
+class DebugHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.redirect('/web/debug.html')
 
 
 class Application(tornado.web.Application):
@@ -84,7 +91,8 @@ class Application(tornado.web.Application):
             (r'/', IndexPageHandler),
             (r'/theqrcode.png', TheQRCodeHandler),
             (r"/process/(\w*)/(\w*)", ProcessHandler),
-            (r'/debugger', DebuggerHandler),
+            (r'/debug', DebugHandler),
+            (r'/jdbcmd/([\s\S]*)', JdbCmdHandler),
             (r'/refresh', RefreshHandler)
         ]
 
