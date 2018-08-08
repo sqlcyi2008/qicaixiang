@@ -14,7 +14,7 @@ import subprocess
 
 class IndexPageHandler(tornado.web.RequestHandler):
     def get(self):
-        self.redirect('/web/admin.html')
+        self.redirect('/web/debug.html')
 
 
 class TheQRCodeHandler(tornado.web.RequestHandler):
@@ -25,8 +25,6 @@ class TheQRCodeHandler(tornado.web.RequestHandler):
 class JdbCmdHandler(tornado.web.RequestHandler):
     def get(self, cmd):
         if cmd == 'jdb':
-            #os.system()
-            #os.startfile('jdb2_start.py')
             subprocess.Popen('python jdb2_start.py')
         else:
             list_lpush('QI-JDB',str(cmd))

@@ -15,6 +15,10 @@ def push_redis(key, line):
     r.lpush(key, line)
 
 
+def key_delete(key):
+    global r
+    r.delete(key)
+
 def list_lpush(key, line):
     global r
     r.lpush(key, line)
