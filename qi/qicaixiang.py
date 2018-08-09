@@ -27,7 +27,7 @@ class JdbCmdHandler(tornado.web.RequestHandler):
         if cmd == 'jdb':
             subprocess.Popen('python jdb2_start.py')
         else:
-            list_lpush('QI-JDB',str(cmd))
+            list_lpush('QI_JDB',str(cmd))
         self.write("{'status':'ok'}")
 
 # 远程启动进程

@@ -22,15 +22,15 @@ def stdoutThread(var):
         global proc
         line = proc.stdout.readline()
         print(line.decode('gbk'), end='')
-        list_lpush('QI-JDB-OUT', line.decode('gbk'))
+        list_lpush('QI_JDB_OUT', line.decode('gbk'))
 
 
 # 标准输入线程
 def stdinThread(var):
     while True:
-        # first = list_index('QI-JDB-OUT',1)
+        # first = list_index('QI_JDB_OUT',1)
         # print(first.decode())
-        el = list_brpop('QI-JDB')
+        el = list_brpop('QI_JDB')
         time.sleep(1)
         msgInput(el[1].decode())
 
