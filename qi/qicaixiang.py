@@ -14,7 +14,7 @@ import subprocess
 
 class IndexPageHandler(tornado.web.RequestHandler):
     def get(self):
-        self.redirect('/web/debug.html')
+        self.redirect('/web/admin.html')
 
 
 class TheQRCodeHandler(tornado.web.RequestHandler):
