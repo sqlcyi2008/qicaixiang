@@ -7,10 +7,16 @@ from qi.utils import *
 
 def pack_callback(packet):
     p2 = packet.show(dump=True)
-    #print(p2)
+    print(p2)
 
-    src = str(packet[IP].src)
-    dst = str(packet[IP].dst)
+    '''
+    存在IPv6的问题
+     type      = IPv6
+     ###[ IPv6 ]### 
+     version   = 6
+    '''
+    src = str(packet[IPv6].src)
+    dst = str(packet[IPv6].dst)
     sport = str(packet[TCP].sport)
     dport = str(packet[TCP].dport)
 
