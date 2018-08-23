@@ -6,7 +6,7 @@ import time
 
 def main():
     time.sleep(3)
-    breakpoints = os.popen('findstr /n /s /d:D:/dev/workspace/jnsw/src "??" *.java').read()
+    breakpoints = os.popen('findstr /n /s /d:D:/dev/SSH/SpringMVC/src "??" *.java').read()
     lines = str(breakpoints).splitlines()
     for line in lines:
         if line.find('??') > 0:

@@ -80,7 +80,9 @@ class RefreshHandler(tornado.web.RequestHandler):
 # 配置调试
 class DebugHandler(tornado.web.RequestHandler):
     def get(self):
-        self.redirect('/web/debug.html')
+        for j in range(0, 10):
+            line = list_index('QI_JDB_OUT',j)
+            print(line)
 
 
 class Application(tornado.web.Application):
