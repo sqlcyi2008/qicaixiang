@@ -84,7 +84,7 @@ class DebugHandler(tornado.web.RequestHandler):
         for j in range(0, 10):
             line = list_index('QI_JDB_OUT',j)
             ll.append(line.decode())
-            print(line.decode())
+            #print(line.decode())
         self.write(json.dumps(ll))
 
 class Application(tornado.web.Application):

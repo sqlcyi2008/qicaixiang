@@ -17,15 +17,15 @@
     <div class="btn" id="subbtn" >-&nbsp</div>
 </div>
 <div class="qi" id="main">
-    <div class="xiang" contenteditable="false">cont</div>
-    <div class="xiang" contenteditable="false">classes</div>
-    <div class="xiang" contenteditable="false">threads</div>
-    <div class="xiang" contenteditable="false">exclude com.mchange.*,com.mysql.*,com.sun.*,java.*,javax.*,jdk.*,org.*,sun.*,websocket.*</div>
-    <div class="xiang" contenteditable="false">stop at com.jxust.svsh.controller.PersonController:66</div>
-    <div class="xiang" contenteditable="false">stop at com.jxust.svsh.controller.PersonController:135</div>
-    <div class="xiang" contenteditable="false">trace go methods</div>
-    <div class="xiang" contenteditable="false">locals</div>
-    <div class="xiang" contenteditable="false">exit</div>
+    <div class="xiang">cont</div>
+    <div class="xiang">classes</div>
+    <div class="xiang">threads</div>
+    <div class="xiang">exclude com.mchange.*,com.mysql.*,com.sun.*,java.*,javax.*,jdk.*,org.*,sun.*,websocket.*</div>
+    <div class="xiang">stop at com.jxust.svsh.controller.PersonController:66</div>
+    <div class="xiang">stop at com.jxust.svsh.controller.PersonController:135</div>
+    <div class="xiang">trace go methods</div>
+    <div class="xiang">locals</div>
+    <div class="xiang">exit</div>
 </div>
 <div class="qi" id="msg">
     <div class="xiang"></div>
@@ -37,7 +37,7 @@
     $(document).ready(function(){
         $(".xiang").click(function(){
             $.get("/jdbcmd/"+$(this).text());
-            $(this).slideToggle();
+            //$(this).slideToggle();
        });
 
         $("#addbtn").click(function(){
@@ -61,7 +61,11 @@
         console.log(result);
             $("#msg").empty();
             for(let index in result) {
-                $("<div class='xiang'>"+result[index]+"</div>").appendTo("#msg");
+                str = result[index];
+                $("<div class='xiang'>"+str+"</div>").appendTo("#msg");
+                if(str.indexOf("断点命中") != -1 ){
+                    $.growl.notice({ message: "断点命中！" });
+                }
             };
    },
     error : function(errorMsg) {
