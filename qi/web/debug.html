@@ -14,7 +14,7 @@
     <div class="xiang" id="tomcat">tomcat</div>
     <div class="xiang" id="jdb">jdb</div>
     <div class="btn" id="addbtn">+</div>
-    <div class="btn" id="subbtn" >-&nbsp</div>
+    <div class="btn" id="subbtn" ><input type="text" id="breakpointText"  size="90" /><input type="text" id="cmdText"  /><button id="submitCmd">提交</button></div>
 </div>
 <div class="qi" id="main">
     <div class="xiang">cont</div>
@@ -27,6 +27,9 @@
     <div class="xiang">locals</div>
     <div class="xiang">exit</div>
 </div>
+<div class="qi" id="breakpointDiv">
+    <div class="xiang">#</div>
+</div>
 <div class="qi" id="msg">
     <div class="xiang"></div>
 </div>
@@ -34,14 +37,41 @@
 <script src="http://ksylvest.github.io/jquery-growl/javascripts/jquery.growl.js" type="text/javascript"></script>
 <link href="http://ksylvest.github.io/jquery-growl/stylesheets/jquery.growl.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
+function bpline(bp){
+
+bp = bp.split('.').join('_');
+bp = bp.split('=').join('_');
+bp = bp.split(' ').join('');
+bp = bp.replace('行','line');
+bp = bp.replace('()','');
+bp = bp.split(',');
+return bp[1]+bp[2];
+
+}
+
+
     $(document).ready(function(){
         $(".xiang").click(function(){
             $.get("/jdbcmd/"+$(this).text());
             //$(this).slideToggle();
+            $(this).css("background-color","yellow");
        });
 
         $("#addbtn").click(function(){
             $('#main').append("<div class='xiang'>new cmd</div>");
+       });
+
+         $("#submitCmd").click(function(){
+            $.get("/jdbcmd/"+$("#cmdText").val());
+            $('#main').append("<div class='xiang'>"+$("#cmdText").val()+"</div>");
+            $("#cmdText").val("");
+
+             $('.xiang').unbind('click').bind('click',(function(){
+                 $.get("/jdbcmd/"+$(this).text());
+                //$(this).slideToggle();
+                $(this).css("background-color","yellow");
+              }));
+
        });
     //end
     });
@@ -58,20 +88,20 @@
     url : "/debug",
     dataType:"json",
     success:function(result) {
-        console.log(result);
             $("#msg").empty();
             for(let index in result) {
                 str = result[index];
                 $("<div class='xiang'>"+str+"</div>").appendTo("#msg");
                 if(str.indexOf("断点命中") != -1 ){
-                    $.growl.notice({ message: "断点命中！" });
+                    console.log(bpline(str));
+                    //$.growl.notice({ message: "断点命中！"+index });
                 }
             };
    },
     error : function(errorMsg) {
     }
 });
-}, 2000);
+}, 1000);
 </script>
 </body>
 </html>
