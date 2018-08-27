@@ -1,0 +1,34 @@
+<!Doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>codeHandler</title>
+    </head>    
+    <body>
+        <p id='5pat54K55ZG95LitOiAi57q.56iLPWh0dHAtYmlvLTkwOTAtZXhlYy0xIiwgY29tLmp4dXN0LnN2c2guY29udHJvbGxlci5QZXJzb25Db250cm9sbGVyLm1pYW4oKSwg6KGMPTEzNSBiY2k9OA__'>base64编码</p>
+        <input id='test' type='text' size='100'></input>
+        <button id="testButton">处理</button>
+        <p>base64解码</p>
+        <input id='test1' type='text' size='100'></input>
+        <button id="testButton1">处理</button>
+        <p id="showResult"></p>
+        <script src="base64.js"></script>
+        <script>
+            var input1 = document.getElementById('test'),
+                button1 = document.getElementById('testButton'),
+                input2 = document.getElementById('test1'),
+                button2 = document.getElementById('testButton1'),
+                show = document.getElementById('showResult');
+            button1.onclick = function(){
+			
+				el = document.getElementById('5pat54K55ZG95LitOiAi57q.56iLPWh0dHAtYmlvLTkwOTAtZXhlYy0xIiwgY29tLmp4dXN0LnN2c2guY29udHJvbGxlci5QZXJzb25Db250cm9sbGVyLm1pYW4oKSwg6KGMPTEzNSBiY2k9OA__');
+				alert(el.innerText);
+                show.innerHTML =  codeHandler.encode(input1.value,'base64');
+            }
+
+            button2.onclick = function(){
+                show.innerHTML =  codeHandler.decode(input2.value,'base64');
+            }
+        </script>
+    </body> 
+</html>    
