@@ -27,7 +27,7 @@ var codeHandler = (function(){
         for ( i = 0 , len = str.length ; i < len ; i++ ){
             binary = binary + handleFormat[encodeType.toLowerCase()](str.charCodeAt(i));
         }
-        console.log(binary);
+        //console.log(binary);
         return binary;
     }
     // 转换为以UTF-8格式的二进制数据
