@@ -11,7 +11,7 @@
 </head>
 <body>
 <div class="qi" id="tools">
-    <div class="xiang" id="tomcat">tomcat</div>
+    <div class="btn" id="tomcat">tomcat</div>
     <div class="xiang" id="jdb">jdb</div>
     <div class="btn" id="addbtn">+</div>
     <div class="btn" id="dbgbtn">调试开</div>
@@ -81,13 +81,6 @@ function TransferString(content)
             var bpid = codeHandler.encode($("#breakpointText").val(),'base64');
             $('#breakpointDiv').append("<div id='"+bpid+"' class='xiang'>"+$("#cmdText").val()+"</div>");
 
-            /*
-             $('.xiang').unbind('click').bind('click',(function(){
-                 $.get("/jdbcmd/"+$(this).text());
-                //$(this).slideToggle();
-                $(this).css("background-color","yellow");
-              }));
-            */
        });
     //end
     });
@@ -122,12 +115,15 @@ function TransferString(content)
                 $("<div class='xiang'>"+str+"</div>").appendTo("#msg");
                 //去掉最后的换行符/n/r
                 str = str.slice(0,-2);
-                //根据base64编码找id对应的元素
-                var bpid = codeHandler.encode(str,'base64');
-                console.log("!!!!!!!!!!!!!!!!!!!!!"+$("#"+bpid).text());
-                if($("#"+bpid).text() ){
-                    //console.log(bpline(str));
-                    //$.growl.notice({ message: "断点命中！"+index });
+                if(str == "") {
+                    console.log("空字符串！");
+                }else{
+                    //根据base64编码找id对应的元素
+                    var bpid = codeHandler.encode(str,'base64');
+                    if($("#"+bpid).length > 0 ){
+                        $("#"+bpid).css("background-color","yellow");
+                        $.get("/jdbcmd/"+$("#"+bpid).text());
+                    }
                 }
             };
    },

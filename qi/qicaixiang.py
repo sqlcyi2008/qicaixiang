@@ -27,8 +27,9 @@ class JdbCmdHandler(tornado.web.RequestHandler):
         if cmd == 'jdb':
             subprocess.Popen('python jdb2_start.py')
         else:
-            list_lpush('QI_JDB',str(cmd))
-        self.write("{'status':'ok'}")
+            for s in str(cmd).split(';'):
+                list_lpush('QI_JDB',str(s))
+        self.write("{'status':'指令已加入队列'}")
 
 # 远程启动进程
 class ProcessHandler(tornado.web.RequestHandler):
@@ -81,7 +82,7 @@ class RefreshHandler(tornado.web.RequestHandler):
 class DebugHandler(tornado.web.RequestHandler):
     def get(self):
         ll =[]
-        for j in range(0, 10):
+        for j in range(0, 5):
             line = list_index('QI_JDB_OUT',j)
             ll.append(line.decode())
             #print(line.decode())
