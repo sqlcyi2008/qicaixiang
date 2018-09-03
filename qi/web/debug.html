@@ -43,13 +43,16 @@
 <script type="text/javascript">
 function bpline(bp){
 
-bp = bp.split('.').join('_');
+//bp = bp.split('.').join('_');
 bp = bp.split('=').join('_');
 bp = bp.split(' ').join('');
 bp = bp.replace('行','line');
 bp = bp.replace('()','');
 bp = bp.split(',');
-return bp[1]+bp[2];
+
+cl = bp[1].substring(0,bp[1].lastIndexOf('.'));
+ln = bp[2].substring(5,bp[2].lastIndexOf('bci_'));
+return cl+':'+ln;
 
 }
 //替换所有的回车换行
@@ -118,6 +121,16 @@ function TransferString(content)
                 if(str == "") {
                     console.log("空字符串！");
                 }else{
+
+                    if(str.indexOf("断点命中") != -1){
+                        var bpid = codeHandler.encode(bpline(str),'base64');
+                        console.log("####"+bpid);
+                         if($("#"+bpid).length > 0 ){
+                            $("#"+bpid).css("background-color","yellow");
+                            $.get("/jdbcmd/"+$("#"+bpid).text());
+                        }
+                    }
+
                     //根据base64编码找id对应的元素
                     var bpid = codeHandler.encode(str,'base64');
                     if($("#"+bpid).length > 0 ){
