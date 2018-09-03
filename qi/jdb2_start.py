@@ -22,7 +22,7 @@ def stdoutThread(var):
         global proc
         line = proc.stdout.readline()
         if not line:
-            break #关闭子进程时，会一直输出空行，故跳出。
+            break  # 关闭子进程时，会一直输出空行，故跳出。
         print(line.decode('gbk'), end='')
         list_lpush('QI_JDB_OUT', line.decode('gbk'))
 

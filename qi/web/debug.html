@@ -4,9 +4,42 @@
     <meta charset="UTF-8">
     <title>七彩箱</title>
     <style type="text/css">
-		.xiang {border-style: solid; border-width: 5px;border-color: blue;text-align:center;background-color:blue;color:white;margin:1px 1px 1px 1px;width:auto;height:50px;line-height:50px;float:left;}
-		.btn {border-style: solid; border-width: 5px;border-color: blue;text-align:center;background-color:blue;color:white;margin:1px 1px 1px 1px;width:auto;height:50px;line-height:50px;float:left;}
-		.qi {background-color:gray;color:white;margin:1px 1px 1px 1px;width:100%;height:100%;float:left;}
+        .xiang {
+            border-style: solid;
+            border-width: 5px;
+            border-color: blue;
+            text-align: center;
+            background-color: blue;
+            color: white;
+            margin: 1px 1px 1px 1px;
+            width: auto;
+            height: 50px;
+            line-height: 50px;
+            float: left;
+        }
+
+        .btn {
+            border-style: solid;
+            border-width: 5px;
+            border-color: blue;
+            text-align: center;
+            background-color: blue;
+            color: white;
+            margin: 1px 1px 1px 1px;
+            width: auto;
+            height: 50px;
+            line-height: 50px;
+            float: left;
+        }
+
+        .qi {
+            background-color: gray;
+            color: white;
+            margin: 1px 1px 1px 1px;
+            width: 100%;
+            height: 100%;
+            float: left;
+        }
     </style>
 </head>
 <body>
@@ -15,7 +48,10 @@
     <div class="xiang" id="jdb">jdb</div>
     <div class="btn" id="addbtn">+</div>
     <div class="btn" id="dbgbtn">调试开</div>
-    <div class="btn" id="subbtn" ><input type="text" id="breakpointText"  size="90" /><input type="text" id="cmdText"  size="30" /><button id="submitCmd">提交</button></div>
+    <div class="btn" id="subbtn"><input type="text" id="breakpointText" size="90"/><input type="text" id="cmdText"
+                                                                                          size="30"/>
+        <button id="submitCmd">提交</button>
+    </div>
 </div>
 <div class="qi" id="main">
     <div class="xiang">cont</div>
@@ -41,109 +77,110 @@
 <link href="http://ksylvest.github.io/jquery-growl/stylesheets/jquery.growl.css" rel="stylesheet" type="text/css" />
 -->
 <script type="text/javascript">
-function bpline(bp){
+    function bpline(bp) {
 
 //bp = bp.split('.').join('_');
-bp = bp.split('=').join('_');
-bp = bp.split(' ').join('');
-bp = bp.replace('行','line');
-bp = bp.replace('()','');
-bp = bp.split(',');
+        bp = bp.split('=').join('_');
+        bp = bp.split(' ').join('');
+        bp = bp.replace('行', 'line');
+        bp = bp.replace('()', '');
+        bp = bp.split(',');
 
-cl = bp[1].substring(0,bp[1].lastIndexOf('.'));
-ln = bp[2].substring(5,bp[2].lastIndexOf('bci_'));
-return cl+':'+ln;
+        cl = bp[1].substring(0, bp[1].lastIndexOf('.'));
+        ln = bp[2].substring(5, bp[2].lastIndexOf('bci_'));
+        return cl + ':' + ln;
 
-}
-//替换所有的回车换行
-function TransferString(content)
-{
-    var string = content;
-    try{
-        string=string.replace(/\r\n/g,"<br>")
-        string=string.replace(/\n/g,"<br>");
-    }catch(e) {
-        alert(e.message);
     }
-    return string;
-}
 
-    $(document).ready(function(){
-        $(".xiang").click(function(){
-            $.get("/jdbcmd/"+$(this).text());
+    //替换所有的回车换行
+    function TransferString(content) {
+        var string = content;
+        try {
+            string = string.replace(/\r\n/g, "<br>")
+            string = string.replace(/\n/g, "<br>");
+        } catch (e) {
+            alert(e.message);
+        }
+        return string;
+    }
+
+    $(document).ready(function () {
+        $(".xiang").click(function () {
+            $.get("/jdbcmd/" + $(this).text());
             //$(this).slideToggle();
-            $(this).css("background-color","yellow");
-       });
+            $(this).css("background-color", "yellow");
+        });
 
-        $("#addbtn").click(function(){
+        $("#addbtn").click(function () {
             $('#main').append("<div class='xiang'>new cmd</div>");
-       });
+        });
 
-         $("#submitCmd").click(function(){
+        $("#submitCmd").click(function () {
             //$.get("/jdbcmd/"+$("#cmdText").val());
-            var bpid = codeHandler.encode($("#breakpointText").val(),'base64');
-            $('#breakpointDiv').append("<div id='"+bpid+"' class='xiang'>"+$("#cmdText").val()+"</div>");
+            var bpid = codeHandler.encode($("#breakpointText").val(), 'base64');
+            $('#breakpointDiv').append("<div id='" + bpid + "' class='xiang'>" + $("#cmdText").val() + "</div>");
 
-       });
-    //end
+        });
+        //end
     });
 
-  //$.growl({ title: "Growl", message: "The kitten is awake!" });
-  //$.growl.error({ message: "The kitten is attacking!" });
-  //$.growl.notice({ message: "The kitten is cute!" });
-  //$.growl.warning({ message: "The kitten is ugly!" });
+    //$.growl({ title: "Growl", message: "The kitten is awake!" });
+    //$.growl.error({ message: "The kitten is attacking!" });
+    //$.growl.notice({ message: "The kitten is cute!" });
+    //$.growl.warning({ message: "The kitten is ugly!" });
 
-    $("#dbgbtn").click(function(){
-        if(kaiguan){
+    $("#dbgbtn").click(function () {
+        if (kaiguan) {
             $('#dbgbtn').text('调试关');
-             kaiguan = false;
-        }else{
+            kaiguan = false;
+        } else {
             $('#dbgbtn').text('调试开');
-             kaiguan = true;
+            kaiguan = true;
         }
     });
     //刷新调试日志
     kaiguan = true;
     setInterval(function () {
-    if(kaiguan) return;
-	$.ajax({
-    type : "get",
-    async : true,
-    url : "/debug",
-    dataType:"json",
-    success:function(result) {
-            $("#msg").empty();
-            for(let index in result) {
-                str = result[index];
-                $("<div class='xiang'>"+str+"</div>").appendTo("#msg");
-                //去掉最后的换行符/n/r
-                str = str.slice(0,-2);
-                if(str == "") {
-                    console.log("空字符串！");
-                }else{
+        if (kaiguan) return;
+        $.ajax({
+            type: "get",
+            async: true,
+            url: "/debug",
+            dataType: "json",
+            success: function (result) {
+                $("#msg").empty();
+                for (let index in result) {
+                    str = result[index];
+                    $("<div class='xiang'>" + str + "</div>").appendTo("#msg");
+                    //去掉最后的换行符/n/r
+                    str = str.slice(0, -2);
+                    if (str == "") {
+                        console.log("空字符串！");
+                    } else {
 
-                    if(str.indexOf("断点命中") != -1){
-                        var bpid = codeHandler.encode(bpline(str),'base64');
-                        console.log("####"+bpid);
-                         if($("#"+bpid).length > 0 ){
-                            $("#"+bpid).css("background-color","yellow");
-                            $.get("/jdbcmd/"+$("#"+bpid).text());
+                        if (str.indexOf("断点命中") != -1) {
+                            var bpid = codeHandler.encode(bpline(str), 'base64');
+                            console.log("####" + bpid);
+                            if ($("#" + bpid).length > 0) {
+                                $("#" + bpid).css("background-color", "yellow");
+                                $.get("/jdbcmd/" + $("#" + bpid).text());
+                            }
+                        }
+
+                        //根据base64编码找id对应的元素
+                        var bpid = codeHandler.encode(str, 'base64');
+                        if ($("#" + bpid).length > 0) {
+                            $("#" + bpid).css("background-color", "yellow");
+                            $.get("/jdbcmd/" + $("#" + bpid).text());
                         }
                     }
-
-                    //根据base64编码找id对应的元素
-                    var bpid = codeHandler.encode(str,'base64');
-                    if($("#"+bpid).length > 0 ){
-                        $("#"+bpid).css("background-color","yellow");
-                        $.get("/jdbcmd/"+$("#"+bpid).text());
-                    }
                 }
-            };
-   },
-    error : function(errorMsg) {
-    }
-});
-}, 1000);
+                ;
+            },
+            error: function (errorMsg) {
+            }
+        });
+    }, 1000);
 </script>
 </body>
 </html>

@@ -21,6 +21,7 @@ class TheQRCodeHandler(tornado.web.RequestHandler):
     def get(self):
         self.render('theqrcode.png')
 
+
 # jdb执行命令
 class JdbCmdHandler(tornado.web.RequestHandler):
     def get(self, cmd):
@@ -28,8 +29,9 @@ class JdbCmdHandler(tornado.web.RequestHandler):
             subprocess.Popen('python jdb2_start.py')
         else:
             for s in str(cmd).split(';'):
-                list_lpush('QI_JDB',str(s))
+                list_lpush('QI_JDB', str(s))
         self.write("{'status':'指令已加入队列'}")
+
 
 # 远程启动进程
 class ProcessHandler(tornado.web.RequestHandler):
@@ -81,12 +83,13 @@ class RefreshHandler(tornado.web.RequestHandler):
 # 调试日志输出
 class DebugHandler(tornado.web.RequestHandler):
     def get(self):
-        ll =[]
+        ll = []
         for j in range(0, 5):
-            line = list_index('QI_JDB_OUT',j)
+            line = list_index('QI_JDB_OUT', j)
             ll.append(line.decode())
-            #print(line.decode())
+            # print(line.decode())
         self.write(json.dumps(ll))
+
 
 class Application(tornado.web.Application):
     def __init__(self):
