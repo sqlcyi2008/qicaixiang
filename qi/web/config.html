@@ -67,7 +67,7 @@
 </head>
 <body>
 <div class="qi" id="tools">
-    <div class="btn" id="tomcat">tomcat</div>
+    <div class="btn" id="tomcat">配置页面</div>
     <div class="xiang" id="jdb">jdb</div>
     <div class="btn" id="addbtn">+</div>
     <div class="btn" id="dbgbtn">调试开</div>
@@ -102,7 +102,8 @@
 -->
 <script type="text/javascript">
     function bpline(bp) {
-        //bp = bp.split('.').join('_');
+
+//bp = bp.split('.').join('_');
         bp = bp.split('=').join('_');
         bp = bp.split(' ').join('');
         bp = bp.replace('行', 'line');
@@ -112,6 +113,7 @@
         cl = bp[1].substring(0, bp[1].lastIndexOf('.'));
         ln = bp[2].substring(5, bp[2].lastIndexOf('bci_'));
         return cl + ':' + ln;
+
     }
 
     //替换所有的回车换行
@@ -137,16 +139,6 @@
             $('#main').append("<div class='xiang'>new cmd</div>");
         });
 
-        $("#dbgbtn").click(function () {
-            if (kaiguan) {
-                $('#dbgbtn').text('调试关');
-                kaiguan = false;
-            } else {
-                $('#dbgbtn').text('调试开');
-                kaiguan = true;
-            }
-        });
-
         $("#submitCmd").click(function () {
             //$.get("/jdbcmd/"+$("#cmdText").val());
             var bpid = codeHandler.encode($("#breakpointText").val(), 'base64');
@@ -155,12 +147,15 @@
                 if ($("#" + bpid).length > 0) {
                     $("#" + bpid).text(cmd);
                 } else {
-                    $('#breakpointDiv').append("<div qicount='0' id='" + bpid + "' class='xiang'>" + cmd + "</div>");
+                    $('#breakpointDiv').append("<div id='" + bpid + "' class='xiang'>" + cmd + "</div>");
                 }
             } else {
                 alert('指令不能为空！');
             }
+
+
         });
+        //end
     });
 
     //$.growl({ title: "Growl", message: "The kitten is awake!" });
@@ -168,7 +163,15 @@
     //$.growl.notice({ message: "The kitten is cute!" });
     //$.growl.warning({ message: "The kitten is ugly!" });
 
-
+    $("#dbgbtn").click(function () {
+        if (kaiguan) {
+            $('#dbgbtn').text('调试关');
+            kaiguan = false;
+        } else {
+            $('#dbgbtn').text('调试开');
+            kaiguan = true;
+        }
+    });
     //刷新调试日志
     kaiguan = true;
     setInterval(function () {
@@ -188,19 +191,16 @@
                     if (str == "") {
                         console.log("空字符串！");
                     } else {
+
                         if (str.indexOf("断点命中") != -1) {
                             var bpid = codeHandler.encode(bpline(str), 'base64');
                             console.log("####" + bpid);
                             if ($("#" + bpid).length > 0) {
-                                //$("#" + bpid).css("background-color", "yellow");
-                                var count = $("#" + bpid).attr('qicount');
-                                //判断是否被执行过
-                                if (count == '0') {
-                                    $.get("/jdbcmd/" + $("#" + bpid).text());
-                                    $("#" + bpid).attr('qicount', '1');
-                                }
+                                $("#" + bpid).css("background-color", "yellow");
+                                $.get("/jdbcmd/" + $("#" + bpid).text());
                             }
                         }
+
                         //根据base64编码找id对应的元素
                         var bpid = codeHandler.encode(str, 'base64');
                         if ($("#" + bpid).length > 0) {
@@ -212,7 +212,6 @@
                 ;
             },
             error: function (errorMsg) {
-                console.log("刷新日志出错！")
             }
         });
     }, 1000);

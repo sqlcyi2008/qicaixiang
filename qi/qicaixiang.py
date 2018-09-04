@@ -84,7 +84,7 @@ class RefreshHandler(tornado.web.RequestHandler):
 class DebugHandler(tornado.web.RequestHandler):
     def get(self):
         ll = []
-        for j in range(0, 5):
+        for j in range(0, 10):
             line = list_index('QI_JDB_OUT', j)
             ll.append(line.decode())
             # print(line.decode())
