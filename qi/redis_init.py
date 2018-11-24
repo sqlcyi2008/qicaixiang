@@ -16,7 +16,7 @@ def callback(a, b, c):
         per = 100
     print('%.2f%%' % per)
 
-path = os.path.abspath('.').replace('\\', '/')
+path = os.path.abspath('.').replace('\\', '/')+'/tools'
 rediszip = path + '/redis-latest.zip'
 redispath = path + '/redis/'
 if os.path.exists(redispath):
@@ -26,6 +26,7 @@ if os.path.exists(redispath):
     shutil.rmtree(redispath)
     os.remove(rediszip)
 
+exit()
 url = 'https://github.com/ServiceStack/redis-windows/raw/master/downloads/redis-latest.zip'
 urllib.request.urlretrieve(url, path + '/redis-latest.zip', callback)
 azip = zipfile.ZipFile(rediszip)

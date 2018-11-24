@@ -3,11 +3,8 @@
 
 import subprocess
 import time
-import random
 import threading
-import operator as op
 from qi.utils import *
-from qi.constants import *
 
 
 def msgInput(msg):

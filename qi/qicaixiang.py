@@ -7,7 +7,6 @@ import tornado.httpserver
 import tornado.ioloop
 import os
 import json
-from qi.constants import *
 from qi.utils import *
 import subprocess
 

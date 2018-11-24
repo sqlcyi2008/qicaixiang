@@ -5,7 +5,7 @@ import subprocess
 import time
 import threading
 from qi.utils import *
-from qi.constants import *
+from qi.plugins.constants import *
 
 """
 jdb命令

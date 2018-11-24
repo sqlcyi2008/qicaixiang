@@ -3,7 +3,7 @@
 
 import redis
 import socket
-from qi.constants import *
+from qi.plugins.constants import *
 
 pool = redis.ConnectionPool(host='127.0.0.1', port=6379)
 global r

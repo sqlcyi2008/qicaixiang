@@ -1,10 +1,9 @@
 # !/usr/bin/env python
 # -*- coding:utf-8 -*-
-import socket
 import dpkt
 import time
 from qi.utils import *
-from qi.constants import *
+
 
 # 抓包进程执行代码:
 def main():
