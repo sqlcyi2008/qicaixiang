@@ -46,7 +46,6 @@ def write_redis(line):
 def read_redis():
     while True:
         global r
-        # line = r.rpop(QI_QICAIXIANG)
         line = r.brpop(QI_QICAIXIANG)  # 阻塞模式
         if line:
             print(str(line[1].decode(encoding="utf-8", errors="ignore")))
