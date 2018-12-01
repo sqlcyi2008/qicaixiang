@@ -25,7 +25,7 @@ def stdoutThread(var):
         if not line:
             break  # 关闭子进程时，会一直输出空行，故跳出
         print(line.decode('gbk'), end='')
-        list_lpush('QI_JDB_OUT', line.decode('gbk'))
+        list_lpush('runoobkey', line.decode('gbk'))
 
 
 # 标准输入线程

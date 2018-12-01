@@ -23,7 +23,7 @@ if os.path.exists(redispath):
     shutil.rmtree(redispath)
     os.remove(rediszip)
 
-exit()
+#exit()
 
 url = 'https://github.com/joewalnes/websocketd/releases/download/v0.3.0/websocketd-0.3.0-windows_amd64.zip'
 urllib.request.urlretrieve(url, path + '/websocketd-0.3.0-windows_amd64.zip', callback)

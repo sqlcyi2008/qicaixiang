@@ -26,7 +26,7 @@ if os.path.exists(redispath):
     shutil.rmtree(redispath)
     os.remove(rediszip)
 
-exit()
+#exit()
 
 url = 'https://github.com/ServiceStack/redis-windows/raw/master/downloads/redis-latest.zip'
 urllib.request.urlretrieve(url, path + '/redis-latest.zip', callback)

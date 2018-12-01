@@ -5,7 +5,7 @@ import os
 
 
 def main():
-    os.system('D:/dev/PycharmProjects/qicaixiang/qi/tools/websocketd/websocketd.exe  --port=8088 python.exe D:/dev/PycharmProjects/qicaixiang/qi/echo.py')
+    os.system('D:/dev/PycharmProjects/qicaixiang/qi/vendor/websocketd/websocketd.exe  --port=8088 python.exe D:/dev/PycharmProjects/qicaixiang/qi/echo.py')
 
 
 if __name__ == '__main__':

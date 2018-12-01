@@ -82,6 +82,13 @@ class ChatSocketHandler(tornado.websocket.WebSocketHandler):
     def on_message(self, message):
         logging.info("got message %r", message)
         parsed = tornado.escape.json_decode(message)
+
+        cmd = parsed["body"]
+        if cmd[0] == '@':
+            pcmd = 'python.exe '+'D:/dev/PycharmProjects/qicaixiang/qi/plugins/'+str(cmd).replace('@','')+'.py'
+            print("@@@@@@@@@@"+pcmd)
+            os.popen(pcmd)
+
         chat = {"id": str(uuid.uuid4()), "body": parsed["body"]}
         chat["html"] = tornado.escape.to_basestring(
             self.render_string("message.html", message=chat)
