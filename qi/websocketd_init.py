@@ -16,12 +16,14 @@ def callback(a, b, c):
         per = 100
     print('%.2f%%' % per)
 
-path = os.path.abspath('.').replace('\\', '/')+'/tools'
+path = os.path.abspath('.').replace('\\', '/')+'/vendor'
 rediszip = path + '/websocketd-0.3.0-windows_amd64.zip'
 redispath = path + '/websocketd/'
 if os.path.exists(redispath):
     shutil.rmtree(redispath)
     os.remove(rediszip)
+
+exit()
 
 url = 'https://github.com/joewalnes/websocketd/releases/download/v0.3.0/websocketd-0.3.0-windows_amd64.zip'
 urllib.request.urlretrieve(url, path + '/websocketd-0.3.0-windows_amd64.zip', callback)
