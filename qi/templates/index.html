@@ -31,11 +31,3 @@
     <script src="{{ static_url("chat.js") }}" type="text/javascript"></script>
   </body>
 </html>
-    <script type="text/javascript">
-var ws = new WebSocket('ws://localhost:8088/');
-
-ws.onmessage = function(event) {
-  console.log(event.data);
-};
-
-    </script>

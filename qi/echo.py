@@ -14,7 +14,8 @@ r = redis.Redis(connection_pool=pool)
 #   sleep(1)
 
 while True:
-  print(r.brpop('runoobkey'))
+  ele = r.brpop('runoobkey')
+  print("@"+str(ele[0])+":"+str(ele[1]))
   stdout.flush()
 
 

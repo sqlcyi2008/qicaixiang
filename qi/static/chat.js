@@ -28,6 +28,7 @@ $(document).ready(function() {
     });
     $("#message").select();
     updater.start();
+    updater.start2();
 });
 
 function newMessage(form) {
@@ -48,6 +49,7 @@ jQuery.fn.formToDict = function() {
 
 var updater = {
     socket: null,
+    socket2: null,
 
     start: function() {
         var url = "ws://" + location.host + "/chatsocket";
@@ -56,7 +58,16 @@ var updater = {
             updater.showMessage(JSON.parse(event.data));
         }
     },
-
+    start2: function() {
+        var url = "ws://localhost:8088/";
+        updater.socket2 = new WebSocket(url);
+        updater.socket2.onmessage = function(event) {
+            //JSON.parse(event.data)
+            console.log("@@@"+event.data)
+            m = {'id':'ddfsadfadf','html':'<div class=\"message\">'+event.data+'</div>'};
+            updater.showMessage(m);
+        }
+    },
     showMessage: function(message) {
         var existing = $("#m" + message.id);
         if (existing.length > 0) return;
