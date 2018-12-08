@@ -47,6 +47,13 @@ jQuery.fn.formToDict = function() {
     return json;
 };
 
+ function guid() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+    return v.toString(16);
+  });
+}
+
 var updater = {
     socket: null,
     socket2: null,
@@ -59,12 +66,10 @@ var updater = {
         }
     },
     start2: function() {
-        var url = "ws://localhost:8088/";
+        var url = "ws://"+location.hostname+":8088/";
         updater.socket2 = new WebSocket(url);
         updater.socket2.onmessage = function(event) {
-            //JSON.parse(event.data)
-            console.log("@@@"+event.data)
-            m = {'id':'ddfsadfadf','html':'<div class=\"message\">'+event.data+'</div>'};
+            m = {'id':guid(),'html':'<div class=\"message\">'+event.data+'</div>'};
             updater.showMessage(m);
         }
     },

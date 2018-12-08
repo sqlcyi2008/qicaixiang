@@ -13,10 +13,9 @@ r = redis.Redis(connection_pool=pool)
 #   stdout.flush()
 #   sleep(1)
 
-while True:
-  ele = r.brpop('runoobkey')
-  print("@"+str(ele[0].decode())+":"+str(ele[1].decode()))
-  stdout.flush()
+for count in range(0, 1000):
+  r.lpush('runoobkey',str(count))
+  sleep(0.1)
 
 
 #LPUSH runoobkey mongodb1
