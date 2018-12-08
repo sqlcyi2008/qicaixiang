@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 
 from scapy.all import *
-from qi.utils import *
+from qi.plugins.utils import *
 
 
 def pack_callback(packet):

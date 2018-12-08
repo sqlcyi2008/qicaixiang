@@ -1,6 +1,6 @@
 # !/usr/bin/env python
 # -*- coding:utf-8 -*-
 
-from qi.utils import *
+from qi.plugins.utils import *
 
 read_redis()

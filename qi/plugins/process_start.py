@@ -3,7 +3,7 @@
 
 import os
 import time
-from qi.utils import *
+from qi.plugins.utils import *
 
 while True:
     tasks = os.popen('tasklist').read()

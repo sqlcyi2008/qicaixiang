@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 import dpkt
 import time
-from qi.utils import *
+from qi.plugins.utils import *
 
 
 # 抓包进程执行代码:

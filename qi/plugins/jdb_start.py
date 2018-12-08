@@ -4,7 +4,7 @@
 import subprocess
 import time
 import threading
-from qi.utils import *
+from qi.plugins.utils import *
 from qi.plugins.constants import *
 
 """

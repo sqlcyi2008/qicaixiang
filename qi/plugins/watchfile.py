@@ -5,7 +5,7 @@ import sys
 import time
 from watchdog.observers import Observer
 from watchdog.events import *
-from qi.utils import *
+from qi.plugins.utils import *
 
 
 class QiCaiHandler(FileSystemEventHandler):
