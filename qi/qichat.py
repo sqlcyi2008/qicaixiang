@@ -86,15 +86,10 @@ class ChatSocketHandler(tornado.websocket.WebSocketHandler):
 
         cmd = parsed["body"]
         if cmd[0] == '@':
-            args = str(cmd).split(" ")
-            if len(args) >=2:
-                pcmd = 'python.exe '+const.PLUGINSPATH+str(cmd[0:str(cmd).find(" ")]).replace("@","")+'.py ' +cmd[str(cmd).find(" "):len(cmd)]
-                print(pcmd)
-                os.popen(pcmd)
-            else:
-                pcmd = 'python.exe '+const.PLUGINSPATH+str(cmd).replace("@","")+'.py'
-                print(pcmd)
-                os.popen(pcmd)
+            pcmd = 'python.exe '+const.PLUGINSPATH+str(cmd).replace("@","")+'.py'
+            rcli = 'redis-cli.exe -h 127.0.0.1 -p 6379 set hello '+cmd
+            os.system(rcli)
+            os.system(pcmd)
 
         chat = {"id": str(uuid.uuid4()), "body": parsed["body"]}
         chat["html"] = tornado.escape.to_basestring(
