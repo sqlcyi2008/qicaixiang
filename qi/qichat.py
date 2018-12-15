@@ -28,6 +28,7 @@ import os.path
 import uuid
 
 from tornado.options import define, options
+from qi.plugins.const import const
 
 define("port", default=8888, help="run on the given port", type=int)
 
@@ -85,9 +86,15 @@ class ChatSocketHandler(tornado.websocket.WebSocketHandler):
 
         cmd = parsed["body"]
         if cmd[0] == '@':
-            pcmd = 'python.exe '+'D:/dev/PycharmProjects/qicaixiang/qi/plugins/'+str(cmd).replace('@','')+'.py'
-            print("@@@@@@@@@@"+pcmd)
-            os.popen(pcmd)
+            args = str(cmd).split(" ")
+            if len(args) >=2:
+                pcmd = 'python.exe '+const.PLUGINSPATH+str(cmd[0:str(cmd).find(" ")]).replace("@","")+'.py ' +cmd[str(cmd).find(" "):len(cmd)]
+                print(pcmd)
+                os.popen(pcmd)
+            else:
+                pcmd = 'python.exe '+const.PLUGINSPATH+str(cmd).replace("@","")+'.py'
+                print(pcmd)
+                os.popen(pcmd)
 
         chat = {"id": str(uuid.uuid4()), "body": parsed["body"]}
         chat["html"] = tornado.escape.to_basestring(
