@@ -87,7 +87,7 @@ class ChatSocketHandler(tornado.websocket.WebSocketHandler):
         cmd = parsed["body"]
         if cmd[0] == '@':
             pcmd = 'python.exe '+const.PLUGINSPATH+str(cmd).replace("@","")+'.py'
-            rcli = 'redis-cli.exe -h 127.0.0.1 -p 6379 set hello '+cmd
+            rcli = 'redis-cli.exe -h 127.0.0.1 -p 6379 set hello '+cmd +'###################################'
             os.system(rcli)
             os.system(pcmd)
 
