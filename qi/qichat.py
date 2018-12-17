@@ -29,6 +29,7 @@ import uuid
 
 from tornado.options import define, options
 from qi.plugins.const import const
+from qi.plugins.utils import *
 
 define("port", default=8888, help="run on the given port", type=int)
 
@@ -69,7 +70,7 @@ class ChatSocketHandler(tornado.websocket.WebSocketHandler):
     def update_cache(cls, chat):
         cls.cache.append(chat)
         if len(cls.cache) > cls.cache_size:
-            cls.cache = cls.cache[-cls.cache_size :]
+            cls.cache = cls.cache[-cls.cache_size:]
 
     @classmethod
     def send_updates(cls, chat):
@@ -85,11 +86,25 @@ class ChatSocketHandler(tornado.websocket.WebSocketHandler):
         parsed = tornado.escape.json_decode(message)
 
         cmd = parsed["body"]
-        if cmd[0] == '@':
-            pcmd = 'python.exe '+const.PLUGINSPATH+str(cmd).replace("@","")+'.py'
-            rcli = 'redis-cli.exe -h 127.0.0.1 -p 6379 set hello '+cmd +'###################################'
-            os.system(rcli)
-            os.system(pcmd)
+        index = str(cmd).find("@")
+        if index > 0:
+            command = cmd[0:index]
+            cmdargs = cmd[index + 1:len(cmd)]
+            print("command=" + command)
+            print("cmdargs=" + cmdargs)
+            pcmd = 'python.exe ' + const.PLUGINSPATH + command + '.py'
+
+            if cmd[0] == "!":
+                list_lpush(command + "-key", cmdargs)
+            else:
+                list_lpush(command + "-key", cmdargs)
+                os.system(pcmd)
+
+        # if cmd[0] == '@':
+        # pcmd = 'python.exe '+const.PLUGINSPATH+str(cmd).replace("@","")+'.py'
+        # rcli = 'redis-cli.exe -h 127.0.0.1 -p 6379 set hello '+cmd +'###################################'
+        # os.system(rcli)
+        # os.system(pcmd)
 
         chat = {"id": str(uuid.uuid4()), "body": parsed["body"]}
         chat["html"] = tornado.escape.to_basestring(
