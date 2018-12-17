@@ -13,7 +13,8 @@ from qi.plugins.utils import *
 const.CURLURL = "https://curl.haxx.se/windows/dl-7.63.0/curl-7.63.0-win64-mingw.zip"
 const.CURLNAME = "curl-7.63.0-win64-mingw.zip"
 const.CURLPATH = const.CURLNAME.replace(".zip", "")
-const.CURLEXE = "curl.exe"
+const.IPCONFIGEXE = "ipconfig.exe"
+
 
 # 标准输出线程
 def stdoutThread(var):
@@ -22,23 +23,25 @@ def stdoutThread(var):
         line = proc.stdout.readline()
         if not line:
             break  # 关闭子进程时，会一直输出空行，故跳出
-        print(line.decode(), end='')
-        list_lpush('qiwebstdout', line.decode())
-        #list_lpush('runoobkey', "status ok!")
+        print(line, end='')
+        list_lpush('qiwebstdout', line)
+        # list_lpush('runoobkey', "status ok!")
+
 
 def main():
-    #inthr = threading.Thread(target=stdinThread, args=(u'输入线程',))
+    # inthr = threading.Thread(target=stdinThread, args=(u'输入线程',))
     outthr = threading.Thread(target=stdoutThread, args=(u'输出线程',))
 
-    el = list_brpop('curl-key')
-    curlargs=el[1].decode()
-    command =const.VENDORPATH + const.CURLPATH + "/bin/" + const.CURLEXE + "  "+curlargs
+    el = list_brpop('ipconfig-key')
+    ipconfigargs = el[1].decode()
+    command = const.IPCONFIGEXE + "  " + ipconfigargs
     global proc
     proc = subprocess.Popen(command, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
     outthr.setDaemon(True)
     outthr.start()
     outthr.join()
+
 
 def callback(a, b, c):
     '''回调函数

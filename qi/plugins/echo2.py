@@ -9,21 +9,21 @@ r = redis.Redis(connection_pool=pool)
 
 # Count from 1 to 10 with a sleep
 # for count in range(0, 10):
-#   print(r.brpop('runoobkey'))
+#   print(r.brpop('qiwebstdout'))
 #   stdout.flush()
 #   sleep(1)
 
 for count in range(0, 1000):
-  r.lpush('runoobkey',str(count))
+  r.lpush('qiwebstdout',str(count))
   sleep(0.1)
 
 
-#LPUSH runoobkey mongodb1
-#LPUSH runoobkey mongodb2
-#LPUSH runoobkey mongodb3
-#LPUSH runoobkey mongodb4
-#LPUSH runoobkey mongodb5
-#LPUSH runoobkey mongodb6
-#LPUSH runoobkey mongodb7
-#LPUSH runoobkey mongodb8
+#LPUSH qiwebstdout mongodb1
+#LPUSH qiwebstdout mongodb2
+#LPUSH qiwebstdout mongodb3
+#LPUSH qiwebstdout mongodb4
+#LPUSH qiwebstdout mongodb5
+#LPUSH qiwebstdout mongodb6
+#LPUSH qiwebstdout mongodb7
+#LPUSH qiwebstdout mongodb8
 

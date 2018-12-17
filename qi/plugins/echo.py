@@ -15,7 +15,7 @@ r = redis.Redis(connection_pool=pool)
 
 while True:
   ele = r.brpop('qiwebstdout')
-  print("@"+str(ele[0].decode())+":"+str(ele[1].decode()))
+  print("@"+str(ele[0])+":"+str(ele[1]))
   stdout.flush()
 
 
