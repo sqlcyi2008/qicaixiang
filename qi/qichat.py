@@ -90,12 +90,15 @@ class ChatSocketHandler(tornado.websocket.WebSocketHandler):
         if index > 0:
             command = cmd[0:index]
             cmdargs = cmd[index + 1:len(cmd)]
+            pcmd = 'python.exe ' + const.PLUGINSPATH + command + '.py'
             print("command=" + command)
             print("cmdargs=" + cmdargs)
-            pcmd = 'python.exe ' + const.PLUGINSPATH + command + '.py'
-
+            print("pcmd=" + pcmd)
             if cmd[0] == "!":
-                list_lpush(command + "-key", cmdargs)
+                list_lpush(command[1:len(command)] + "-key", cmdargs)
+            elif cmd[0] == "&":
+                pcmd = 'python.exe ' + const.PLUGINSPATH + command[1:len(command)] + '.py'
+                os.popen(pcmd)
             else:
                 list_lpush(command + "-key", cmdargs)
                 os.system(pcmd)
