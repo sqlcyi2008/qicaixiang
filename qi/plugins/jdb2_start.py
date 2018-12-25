@@ -33,7 +33,7 @@ def stdinThread(var):
     while True:
         # first = list_index('QI_JDB_OUT',1)
         # print(first.decode())
-        el = list_brpop('QI_JDB')
+        el = list_brpop('jdb-key')
         time.sleep(1)
         msgInput(el[1].decode())
 
@@ -42,8 +42,8 @@ def main():
     inthr = threading.Thread(target=stdinThread, args=(u'输入线程',))
     outthr = threading.Thread(target=stdoutThread, args=(u'输出线程',))
 
-    #command = '"C:\\Program Files\\Java\\jdk1.8.0_121\\bin\\jdb.exe" -launch -Djdk.tls.ephemeralDHKeySize=2048 -Djava.util.logging.config.file=D:\\apps\\apache-tomcat-7.0.72\\conf\\logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djava.endorsed.dirs=D:\\apps\\apache-tomcat-7.0.72\\endorsed -classpath D:\\apps\\apache-tomcat-7.0.72\\bin\\bootstrap.jar;D:\\apps\\apache-tomcat-7.0.72\\bin\\tomcat-juli.jar -Dcatalina.base=D:\\apps\\apache-tomcat-7.0.72 -Dcatalina.home=D:\\apps\\apache-tomcat-7.0.72 -Djava.io.tmpdir=D:\\apps\\apache-tomcat-7.0.72\\temp org.apache.catalina.startup.Bootstrap start'
-    command ='"C:\\Program Files\\Java\\jdk1.8.0_121\\bin\\jdb.exe" -launch -Dfile.encoding=UTF-8 -classpath "D:\\dev\\workspace4\\debugdemo\\bin" debugdemo.MathOps'
+    command = '"C:\\Program Files\\Java\\jdk1.8.0_121\\bin\\jdb.exe" -launch -Djdk.tls.ephemeralDHKeySize=2048 -Djava.util.logging.config.file=D:\\apps\\apache-tomcat-7.0.72\\conf\\logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djava.endorsed.dirs=D:\\apps\\apache-tomcat-7.0.72\\endorsed -classpath D:\\apps\\apache-tomcat-7.0.72\\bin\\bootstrap.jar;D:\\apps\\apache-tomcat-7.0.72\\bin\\tomcat-juli.jar -Dcatalina.base=D:\\apps\\apache-tomcat-7.0.72 -Dcatalina.home=D:\\apps\\apache-tomcat-7.0.72 -Djava.io.tmpdir=D:\\apps\\apache-tomcat-7.0.72\\temp org.apache.catalina.startup.Bootstrap start'
+    #command ='"C:\\Program Files\\Java\\jdk1.8.0_121\\bin\\jdb.exe" -launch -Dfile.encoding=UTF-8 -classpath "D:\\dev\\workspace4\\debugdemo\\bin" debugdemo.MathOps'
     global proc
     proc = subprocess.Popen(command, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 

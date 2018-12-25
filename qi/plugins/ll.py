@@ -13,7 +13,7 @@ from qi.plugins.utils import *
 const.CURLURL = ""
 const.CURLNAME = ""
 const.CURLPATH = const.CURLNAME.replace(".zip", "")
-const.IPCONFIGEXE = "ipconfig.exe"
+const.DIREXE = "ipconfig.exe"
 
 
 # 标准输出线程

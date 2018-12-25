@@ -10,10 +10,10 @@ import subprocess
 import threading
 from qi.plugins.utils import *
 
-const.CURLURL = ""
-const.CURLNAME = ""
-const.CURLPATH = const.CURLNAME.replace(".zip", "")
-const.IPCONFIGEXE = "ipconfig.exe"
+const.DIRURL = ""
+const.DIRNAME = ""
+const.DIRPATH = const.DIRNAME.replace(".zip", "")
+const.DIREXE = "dir"
 
 
 # 标准输出线程
@@ -32,9 +32,10 @@ def main():
     # inthr = threading.Thread(target=stdinThread, args=(u'输入线程',))
     outthr = threading.Thread(target=stdoutThread, args=(u'输出线程',))
 
-    el = list_brpop('ipconfig-key')
-    ipconfigargs = el[1].decode()
-    command = const.IPCONFIGEXE + "  " + ipconfigargs
+    el = list_brpop('dir-key')
+    dirargs = el[1].decode()
+    command = const.DIREXE + "  " + dirargs
+    print("@@@"+command)
     global proc
     proc = subprocess.Popen(command, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
@@ -57,8 +58,8 @@ def callback(a, b, c):
 
 
 def init():
-    urllib.request.urlretrieve(const.CURLURL, const.VENDORPATH + const.CURLNAME, callback)
-    azip = zipfile.ZipFile(const.VENDORPATH + const.CURLNAME)
+    urllib.request.urlretrieve(const.DIRURL, const.VENDORPATH + const.DIRNAME, callback)
+    azip = zipfile.ZipFile(const.VENDORPATH + const.DIRNAME)
     azip.extractall(const.VENDORPATH)
 
 
